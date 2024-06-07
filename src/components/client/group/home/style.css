@@ -1,0 +1,48 @@
+.border-bottomm {
+  border-bottom: 3px solid var(--bs-primary);
+}
+
+.group-active > i,
+.group-active > span {
+  color: var(--bs-primary);
+}
+
+.group-active {
+  background-color: rgba(12, 237, 237, 0.151);
+}
+
+.main-group {
+  font-size: 15px;
+  width: 120px;
+  padding: 0px 7%;
+  background-color: #fff;
+  opacity: 1;
+}
+.respon_cover {
+  overflow: hidden;
+  border-radius: 0px 0px 10px 10px;
+  height: 30em;
+}
+@media (max-width: 1600px) {
+  .respon_cover {
+    height: 27em;
+  }
+}
+.modal-component {
+  width: 25vw;
+  z-index: 1;
+  display: none;
+  position: absolute;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.imge-hover:hover ~ .modal-component {
+  display: block !important;
+}
+.modal-component:hover {
+  display: block !important;
+}
+.members_hover:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
