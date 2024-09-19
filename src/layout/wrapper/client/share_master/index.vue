@@ -105,7 +105,7 @@
                                     <div class="card shadow-none m-0">
                                         <div class="card-header bg-primary">
                                             <div class="header-title">
-                                                <h5 class="mb-0 text-white">Hello {{ myData.fullname }}</h5><span
+                                                <h5 class="mb-0 text-white">Xin chào {{ myData.fullname }}</h5><span
                                                     class="text-white font-size-12">Available</span>
                                             </div>
                                         </div>
@@ -117,7 +117,7 @@
                                                         <div class="rounded card-icon bg-soft-primary"><i
                                                                 class="ri-file-user-line"></i></div>
                                                         <div class="ms-3">
-                                                            <h6 class="mb-0">My Profile</h6>
+                                                            <h6 class="mb-0">Trang cá nhân</h6>
                                                             <p class="mb-0 font-size-12">View personal profile details.
                                                             </p>
                                                         </div>

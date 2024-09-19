@@ -5,16 +5,16 @@
                 <div>
                     <h5>
                         <b>
-                            Request to join the group ({{ dataComeIn.length }})
+                            Yêu cầu tham gia nhóm ({{ dataComeIn.length }})
                         </b>
                     </h5>
                 </div>
                 <div v-if="dataComeIn.length >= 2">
                     <button class="btn btn-primary me-2" @click="approveConnectionAll()">
-                        Approve all
+                        Phê duyệt tất cả
                     </button>
                     <button class="btn btn-secondary" @click="refuseConnectionAll()">
-                        Refuse all
+                        Từ chối tất cả
                     </button>
                 </div>
             </div>
@@ -44,22 +44,22 @@
                             </div>
                             <div>
                                 <b class="text-dark">{{ v.fullname }}</b>
-                                <div class="text-nowrap">Request sent about {{ formatTime(v.created_at) }} ago</div>
+                                <div class="text-nowrap">Yêu cầu được gửi về {{ formatTime(v.created_at) }} trước</div>
                             </div>
                         </div>
                         <div class="flex-center">
                             <button class="btn btn-primary me-2 btn-sm" style="width: 150px;"
                                 @click="approveConnection(v, k)">
-                                Approve
+                                Chấp nhận
                             </button>
                             <button class="btn btn-secondary  btn-sm" style="width: 150px;"
-                                @click="refuseConnection(v, k)">Refuse</button>
+                                @click="refuseConnection(v, k)">Từ chối</button>
                         </div>
                     </div>
                     <div style="width: 100%; padding-left: 10%;" class="mt-1">
                         <div class="mb-2">
                             <i class="fa-solid fa-user-group me-2" style="font-size: 15px;"></i>
-                            <b class="text-dark">1 mutual friend</b>
+                            <b class="text-dark">1 người bạn chung</b>
                         </div>
                         <div class="mb-2">
                             <i class="fa-solid fa-users me-2" style="font-size: 15px;"></i>

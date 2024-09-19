@@ -28,7 +28,7 @@
             <img style="object-fit: cover; width: 100%;height: 100%; padding: 0.7rem"
                 src="../../../../assets/img/camera.png">
         </div>
-        <h2 class="text-dark"><b>No Photos Yet</b></h2>
+        <h2 class="text-dark"><b>Không có hình ảnh</b></h2>
     </div>
 
     <ModalPost v-if="currentPost" :post="currentPost" :index="0" />

@@ -1,8 +1,8 @@
 <template >
-    <div class="col-md-6 bg-white pt-4">
-        <div class="sign-in-from">
-            <h1 class="mb-0">Sign Up</h1>
-            <p>Enter your email address and password to access admin panel.</p>
+    <div class="col-md-6 bg-white">
+        <div class="sign-in-from pt-4" style="overflow: auto; max-height: 90vh; height: 90vh;">
+            <h1 class="mb-0">Đăng ký</h1>
+            <p>Nơi bắt đầu để kết nối với thế giới</p>
             <div class="mt-2">
                 <div class="form-group">
                     <input v-model="sign_up.fullname" type="email" class="form-control mb-0" placeholder="Full name">
@@ -26,29 +26,29 @@
                     <input v-model="sign_up.password" type="password" class="form-control mb-0" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label>Date of birth</label>
+                    <label>Ngày sinh</label>
                     <input v-model="sign_up.date_of_birth" type="date" class="form-control mb-0" placeholder="Password">
                 </div>
                 <div class="form-group">
-                    <label>Gender</label>
+                    <label>Giới tính</label>
                     <div class="w-100 d-flex">
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
                             @click="selectRadio('1')">
-                            <label style="cursor: pointer">Male</label>
+                            <label style="cursor: pointer">Nam</label>
                             <input value="1" v-model="sign_up.gender" name="gender" type="radio"
                                 :checked="selectedGender == 1" />
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
                             @click="selectRadio('0')">
-                            <label style="cursor: pointer">Female</label>
+                            <label style="cursor: pointer">Nữ</label>
                             <input value="0" v-model="sign_up.gender" name="gender" type="radio"
                                 :checked="selectedGender == 0" />
                         </div>
 
                         <div class="form-control d-flex justify-content-between me-2" style="cursor: pointer"
                             @click="selectRadio('-1')">
-                            <label style="cursor: pointer">Other</label>
+                            <label style="cursor: pointer">Khác</label>
                             <input value="-1" v-model="sign_up.gender" name="gender" type="radio"
                                 :checked="selectedGender == -1" />
                         </div>
@@ -58,13 +58,13 @@
                     <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signUp()">Sign Up</button>
                     <button v-else class="btn btn-secondary w-100 " disabled>
                         <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader" style="height: 20px;">
-                        Sign Up
+                        Đăng ký
                     </button>
                 </div>
                 <div class="sign-info text-center">
-                    <span class="dark-color d-inline-block line-height-2">Already Have Account ?
+                    <span class="dark-color d-inline-block line-height-2">Bạn đã có tài khoản ?
                         <router-link :to="{ name: 'sign-in' }">
-                            Sign In
+                            Đăng nhập
                         </router-link>
                     </span>
                 </div>
@@ -161,17 +161,17 @@ export default {
             this.startInterval();
             const enterConfirmationCode = async () => {
                 const result = await Swal.fire({
-                    title: "Enter your confirmation code",
-                    inputLabel: `This code will expire after 1 minute`,
+                    title: "Nhập mã xác nhận của bạn",
+                    inputLabel: `Mã này sẽ hết hạn sau 1 phút`,
                     input: "text",
-                    inputPlaceholder: "Enter your code",
+                    inputPlaceholder: "Nhập mã của bạn",
                     inputAttributes: {
                         maxlength: "6",
                         autocapitalize: "off",
                         autocorrect: "off",
                     },
                     html: `
-                        <div class='resent-mail'>Resent mail</div>
+                        <div class='resent-mail'>gửi lại mã</div>
                         <div class="border-top-loading-resent"></div>
                     `,
                     showCancelButton: true,
@@ -197,7 +197,7 @@ export default {
                     },
                     preConfirm: (hash_active) => {
                         if (!hash_active) {
-                            Swal.showValidationMessage("Please enter the confirmation code");
+                            Swal.showValidationMessage("Vui lòng nhập mã xác nhận");
                             const mess = document.querySelector('.swal2-validation-message');
                             if (mess) {
                                 mess.style.margin = '0 -1.28rem';
@@ -213,7 +213,7 @@ export default {
                     const response = await axios.post('http://127.0.0.1:8000/api/active-mail', { hash_active });
                     return response.data;
                 } catch (error) {
-                    return { status: 0, message: "Something went wrong while activating your account" };
+                    return { status: 0, message: "Đã xảy ra sự cố khi kích hoạt tài khoản của bạn" };
                 }
             };
 
@@ -229,7 +229,7 @@ export default {
                             isActivationSuccessful = true;
                             Swal.fire({
                                 icon: "success",
-                                title: "Account activated",
+                                title: "Tài khoản đã được kích hoạt",
                                 text: response.message,
                                 allowOutsideClick: false,
                             }).then(() => {
@@ -241,8 +241,8 @@ export default {
                                 icon: "error",
                                 text: response.message,
                                 showCancelButton: true,
-                                confirmButtonText: "Retry",
-                                cancelButtonText: "Cancel",
+                                confirmButtonText: "Thử lại",
+                                cancelButtonText: "Bỏ qua",
                                 allowOutsideClick: false,
                             });
 
@@ -270,8 +270,8 @@ export default {
                     if (res.data.status) {
                         this.loading = 0
                         Swal.fire({
-                            title: 'Check mail',
-                            text: 'Check your mail and enter the verification code to activate your account',
+                            title: 'Kiểm tra email',
+                            text: 'Kiểm tra thư của bạn và nhập mã xác minh để kích hoạt tài khoản của bạn',
                             icon: 'info',
                             confirmButtonText: 'OK'
                         }).then((result) => {
@@ -283,7 +283,7 @@ export default {
                         Swal.fire({
                             icon: "error",
                             title: "Oops...",
-                            text: "Account already exists",
+                            text: "Tài khoản đã tồn tại",
                         });
                     }
                 })

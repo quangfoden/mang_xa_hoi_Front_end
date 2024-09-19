@@ -6,8 +6,8 @@
             </div>
         </router-link>
         <div>
-            <span>Friend</span>
-            <h4>All friends</h4>
+            <span>bạn bè</span>
+            <h4>Tất cả bạn bè</h4>
         </div>
     </div>
     <div class="iq-search-bar device-search w-100 mt-1 mb-1">
@@ -21,7 +21,7 @@
     </div>
     <hr style="margin-top: 15px; margin-bottom: 4px;">
     <div style="overflow-y:auto; max-height: calc(100vh - 12.9rem); ">
-        <span class="ms-1 f-500">{{ Object.keys(all_friend).length }} friends</span>
+        <span class="ms-1 f-500">{{ Object.keys(all_friend).length }} bạn bè</span>
         <div class=" me-1" v-for="(v, k) in list_search">
             <router-link :to="{ name: 'detailProfile.all_friends', params: { username: v.username } }">
                 <div class="bg-hover d-flex p-2 w-100 h-100" style="overflow: hidden;">
@@ -32,7 +32,7 @@
                         </div>
                         <div :class="{ 'd-flex flex-center': v.mutual == 0 }">
                             <b class="text-secondary">{{ v.fullname }}</b> <br>
-                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
+                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} bạn chung</span>
                         </div>
                     </div>
                 </div>

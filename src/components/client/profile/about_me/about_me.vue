@@ -7,7 +7,7 @@
                         <div class="tab-pane fade active show" id="v-pills-basicinfo-tab" role="tabpanel"
                             aria-labelledby="v-pills-basicinfo-tab">
                             <h4 class="text-center">
-                                <b class="text-dark">Information</b>
+                                <b class="text-dark">Thông tin cá nhân</b>
                             </h4>
                             <hr>
                             <div class="row">
@@ -18,20 +18,20 @@
                                     <p class="mb-0">{{ info.email }}</p>
                                 </div>
                                 <div class="col-3">
-                                    <h6>Mobile</h6>
+                                    <h6>Sdt</h6>
                                 </div>
                                 <div class="col-9">
                                     <p class="mb-0">{{ info.phone_number }}</p>
                                 </div>
                                 <div class="col-3">
-                                    <h6>Address</h6>
+                                    <h6>Địa chỉ</h6>
                                 </div>
                                 <div class="col-9">
                                     <p class="mb-0">{{ info.address }}</p>
                                 </div>
                             </div>
                             <div v-if="link_address.length > 0">
-                                <h4 class="mt-3">Websites and Social Links</h4>
+                                <h4 class="mt-3">Websites và Social Links</h4>
                                 <hr>
                                 <div class="row" v-for="(v, k) in link_address">
                                     <div class="col-1 d-flex align-items-center">
@@ -47,20 +47,20 @@
                                 </div>
                             </div>
                             <div v-else></div>
-                            <h4 class="mt-3">Basic Information</h4>
+                            <h4 class="mt-3">Thông tin cá nhân cơ bản</h4>
                             <hr>
                             <div class="row">
                                 <div class="col-3">
-                                    <h6>Date of birth</h6>
+                                    <h6>Ngày sinh</h6>
                                 </div>
                                 <div class="col-9">
                                     <p class="mb-0">{{ info.date_of_birth }}</p>
                                 </div>
                                 <div class="col-3">
-                                    <h6>Gender</h6>
+                                    <h6>Giới tính</h6>
                                 </div>
                                 <div class="col-9">
-                                    <p class="mb-0">{{ info.gender == 0 ? 'Female' : info.gender == 1 ? 'Male' : 'Other' }}
+                                    <p class="mb-0">{{ info.gender == 0 ? 'Nữ' : info.gender == 1 ? 'Nam' : 'Other' }}
                                     </p>
                                 </div>
                                 <div class="row" v-if="info.bio">

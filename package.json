@@ -28,6 +28,7 @@
     "mitt": "^3.0.1",
     "moment": "^2.29.4",
     "outlayer": "^2.1.1",
+    "pinia": "^2.2.2",
     "primevue": "^3.46.0",
     "rotate-icon": "^1.0.3",
     "select2": "^4.1.0-rc.0",

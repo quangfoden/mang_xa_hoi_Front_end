@@ -1,6 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router"; // cài vue-router: npm install vue-router@next --save
-
+import VideoCall from '../components/test/call_video.vue'; // Đảm bảo import WebRTC.vue
 const routes = [
+  {
+    path: '/video-call',
+    name: 'VideoCall',
+    meta: { layout: "empty", requiresAuth: true },
+    component: VideoCall, 
+  },
+
   {
     path: "/error/404",
     name: "error404",

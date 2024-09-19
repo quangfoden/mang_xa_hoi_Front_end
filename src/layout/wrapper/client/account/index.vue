@@ -24,22 +24,21 @@
                                         <div class="carousel-item active">
                                             <img src="../../../../assets/client/images/login/1.png"
                                                 class="d-block w-100" alt="...">
-                                            <h4 class="mb-1 text-white">Find new friends</h4>
-                                            <p>Connection is a valuable investment - you never know the people you'll
-                                                meet
-                                                and the adventures you'll have with them.</p>
+                                            <h4 class="mb-1 text-white">Tìm kiếm bạn bè</h4>
+                                            <p>Kết nối là một khoản đầu tư có giá trị - bạn không bao giờ biết được những người mình sẽ gặp và 
+                                                những cuộc phiêu lưu mà bạn sẽ có với họ..</p>
                                         </div>
                                         <div class="carousel-item">
                                             <img src="../../../../assets/client/images/login/2.png"
                                                 class="d-block w-100" alt="...">
-                                            <h4 class="mb-1 text-white">Connect with the world</h4>
-                                            <p>A life worth living is a life worth sharing.</p>
+                                            <h4 class="mb-1 text-white">Kết nối với thế giới</h4>
+                                            <p>Một cuộc sống đáng sống là một cuộc sống đáng chia sẻ.</p>
                                         </div>
                                         <div class="carousel-item">
                                             <img src="../../../../assets/client/images/login/3.png"
                                                 class="d-block w-100" alt="...">
-                                            <h4 class="mb-1 text-white">Create new events</h4>
-                                            <p>Stay updated, stay informed - where news unfolds.</p>
+                                            <h4 class="mb-1 text-white">Tạo sự kiện mới</h4>
+                                            <p>Luôn cập nhật, cập nhật thông tin - nơi tin tức mở ra.</p>
                                         </div>
                                     </div>
                                     <button
@@ -65,7 +64,7 @@
                                             <img src="../../../../assets/img/admin-account.jpg" class="d-block w-100"
                                                 style="border-radius: 5px;">
                                             <h3 class="mb-1 text-white fs-3">
-                                                Manage
+                                             Quản lý
                                                 <span translate="no">NextFuture</span>
                                             </h3>
                                             <p class="f-500">
@@ -95,7 +94,7 @@ export default {
         }
     },
     created() {
-        this.checkRole = this.$route.path == '/sign-in' ? 'client' : 'admin'
+        this.checkRole = this.$route.path == '/sign-in' || 'sign-up' ? 'client' : 'admin'
     },
     methods: {
         //

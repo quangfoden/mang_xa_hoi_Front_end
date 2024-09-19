@@ -150,7 +150,7 @@
         </div>
     </div>
     <div class="d-flex justify-content-center align-items-center "
-        style="height: 80vh; width: 80vw; position: absolute; right: 0; top: 4.688rem;">
+        style="height: 80vh; width: 80vw; position: absolute; right: 0; top: 4.688rem;z-index: 1;">
         <div class="d-flex" style="height: 333px; width: 470px; gap: 20px;">
 
             <div class="radius-10 make-color1 d-flex justify-content-center align-items-center left"

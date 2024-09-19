@@ -6,12 +6,12 @@
             </div>
         </router-link>
         <div>
-            <span>Friend</span>
-            <h4>Suggest</h4>
+            <span>Bạn bè</span>
+            <h4>Gợi ý</h4>
         </div>
     </div>
     <div>
-        People you may know
+        bạn bè bạn có thể biết
     </div>
     <div style="overflow-y: auto; max-height: calc(100vh - 10.5rem); ">
         <div class="mt-2 me-1" v-for="(v, k) in list_friend">
@@ -26,22 +26,22 @@
                             <div style="line-height: 1.25rem;">
                                 <b class="text-secondary ">{{ v.fullname }}</b> <br>
                             </div>
-                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
+                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} bạn chung</span>
                             <div class=" d-flex w-100 ">
                                 <template v-if="v.friendStatus == false">
                                     <div class="me-1">
                                         <button class="btn btn-primary text-nowrap" @click="addFriend(v, k)" style="width: 100px">
-                                            Add friend</button>
+                                            Thêm bạn bè</button>
                                     </div>
                                     <div class="me-1">
                                         <button class="btn btn-secondary" style="width: 100px;"
-                                            @click="del(k, $event)">Delete</button>
+                                            @click="del(k, $event)">Xoá</button>
                                     </div>
                                 </template>
                                 <template v-else>
                                     <div class="me-1 w-100">
                                         <button class="btn btn-secondary w-100" @click="unRequest(v, k)">
-                                            Cancel
+                                            Bỏ qua
                                         </button>
                                     </div>
                                 </template>

@@ -6,13 +6,13 @@
             </div>
         </router-link>
         <div>
-            <span>Friend</span>
-            <h4>Friend request</h4>
+            <span>Bạn bè</span>
+            <h4>Lời mời kết bạn</h4>
         </div>
     </div>
     <hr style="margin-top: 4px; margin-bottom: 4px;">
     <div style="overflow-y: auto; max-height: calc(100vh - 9.3rem); ">
-        <div class="ms-1 f-500">{{ Object.keys(request_friend).length }} friend requests</div>
+        <div class="ms-1 f-500">{{ Object.keys(request_friend).length }} lời mời kết bạn</div>
         <div class="mt-2 me-1" v-for="(v, k) in request_friend">
             <router-link :to="{ name: 'detailProfile.request_friend', params: { username: v.username } }">
                 <div class="d-flex align-items-center ">
@@ -25,13 +25,13 @@
                             <div style="line-height: 1.25rem">
                                 <b class="text-secondary">{{ v.fullname }}</b> <br>
                             </div>
-                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
+                            <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} bạn chung</span>
                             <div class="">
-                                <button class="btn btn-primary me-1" style="width: 6.1rem;" @click="confirm(v, k)">
-                                    Confirm
+                                <button class="btn btn-primary me-1 mb-1" style="width: 6.1rem;" @click="confirm(v, k)">
+                                    Xác nhận
                                 </button>
                                 <button class="btn btn-secondary" style="width: 6.1rem;" @click="delRequest(v, k)">
-                                    Delete
+                                    Xoá
                                 </button>
                             </div>
                         </div>

@@ -1,5 +1,5 @@
 <template>
-    <header-component :myInfo="myInfo" />
+    <header-component :myInfo="getMyInfo" />
     <div class="">
         <div class="iq-sidebar-fix sidebar-default ">
             <div id="sidebar-scrollbar" data-scrollbar="true" tabindex="-1" style="overflow: hidden; outline: none;">
@@ -31,7 +31,7 @@
 
 <!-- import  -->
 <script>
-import HeaderComponent from '../../../layout/wrapper/client/master_page/HeaderClient.vue'
+import HeaderComponent from '../../../layout/wrapper/client/main_master_page/HeaderClient.vue'
 import ListComponent from './conversation_list.vue'
 import ChatBoxComponent from './conversation_chat_box.vue'
 

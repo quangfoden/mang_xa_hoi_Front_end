@@ -18,10 +18,10 @@
                         <i class="fas fa-plus text-dark"></i>
                     </div>
                     <div class="" style="line-height: 1.3;">
-                        <span class="text-dark" style="font-weight: 600; font-size: 14px;">Create Story</span>
+                        <span class="text-dark" style="font-weight: 600; font-size: 14px;">Tạo Story</span>
                         <br>
-                        <span class="text-dark" style="white-space: normal; font-size: 12px;">You can share a photo or write
-                            something.</span>
+                        <span class="text-dark" style="white-space: normal; font-size: 12px;">Bạn có thể chia sẻ ảnh hoặc viết
+                            cái gì đó.</span>
                     </div>
                 </div>
             </li>
@@ -29,7 +29,7 @@
 
         <div class="d-flex justify-content-between mt-3">
             <h5 style="font-family: &quot;Segoe UI&quot;, Tahoma, Geneva, Verdana, sans-serif; font-weight: 500;">
-                All Stories
+                Tất cả Stories
             </h5>
         </div>
         <li v-for="(v, k) in stories" class="bg-hover p-2 c-pointer" @click="viewStory(k)">
@@ -41,7 +41,7 @@
                     <br>
                     <span class="text-dark" style="white-space: normal; font-size: 12px;">{{
                         hoursDifference(v.dataStory[0].created_at)
-                    }} ago</span>
+                    }} trước</span>
                 </div>
             </div>
         </li>

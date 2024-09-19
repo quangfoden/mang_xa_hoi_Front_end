@@ -29,16 +29,16 @@
                                                 <button class="btn btn-secondary" type="button"
                                                     data-bs-toggle="dropdown" aria-expanded="false" style='width:130px'>
                                                     <i class="fa-solid fa-user-check me-1"></i>
-                                                    Friend
+                                                    Bạn bè
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <button class="dropdown-item"
-                                                            @click="unFriend()">Unfriend</button>
+                                                            @click="unFriend()">Huỷ kết bạn</button>
                                                     </li>
-                                                    <li>
+                                                    <!-- <li>
                                                         <button class="dropdown-item">Unfollow</button>
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                             <button @click="switchPage()" class='btn btn-primary ms-2'
@@ -52,17 +52,17 @@
                                                 <button class="btn btn-primary" type="button" data-bs-toggle="dropdown"
                                                     aria-expanded="false" style='width:130px'>
                                                     <i class="fa-solid fa-user-check me-1"></i>
-                                                    Confirm
+                                                    Xác nhận
                                                 </button>
                                                 <ul class="dropdown-menu">
                                                     <li>
                                                         <button class="dropdown-item" @click='confirm()'>
-                                                            Confirm request
+                                                           Xác nhận
                                                         </button>
                                                     </li>
                                                     <li>
                                                         <button class="dropdown-item" @click='delRequest()'>
-                                                            Delete request
+                                                          Xoá
                                                         </button>
                                                     </li>
                                                 </ul>
@@ -77,7 +77,7 @@
                                             <button class='btn btn-primary ms-2' style='width:130px'
                                                 @click='unRequest()'>
                                                 <i class="fa-solid fa-user-xmark me-1"></i>
-                                                Cancel
+                                                bỏ qua
                                             </button>
                                             <button @click="switchPage()" class='btn btn-secondary ms-2'
                                                 style='width:130px'>
@@ -89,7 +89,7 @@
                                             <button class='btn btn-primary ms-2' style='width:130px'
                                                 @click="addFriend()">
                                                 <i class="fa-solid fa-user-plus me-1"></i>
-                                                Add friend
+                                               Thêm bạn bè
                                             </button>
                                             <button @click="switchPage()" class='btn btn-secondary ms-2'
                                                 style='width:130px'>
@@ -100,7 +100,7 @@
                                         <li v-if="status == 'self'" class='flex-center'>
                                             <router-link :to="{ name: 'editProfile' }"
                                                 class="btn btn-light ms-2 f-500 text-dark btn-sm" style='width:130px'>
-                                                <span class="flex-center h-100">Edit profile</span>
+                                                <span class="flex-center h-100">Chỉnh sửa</span>
                                             </router-link>
                                         </li>
                                     </ul>
@@ -110,14 +110,14 @@
                                 <div class="social-links  w-100">
                                     <ul class="social-data-block d-flex  list-inline p-0 m-0 ">
                                         <li class="text-center ">
-                                            <h5> <b>{{ lengthPost }}</b> posts</h5>
+                                            <h5> <b>{{ lengthPost }}</b> bài đăng</h5>
                                         </li>
                                         <li class="text-center ps-3">
                                             <h5 style="cursor: pointer;" data-bs-toggle="modal"
                                                 data-bs-target="#modalFollower">
                                                 <b>
                                                     {{ followers.length }}
-                                                </b> followers
+                                                </b> người theo dõi
                                             </h5>
                                             <ModalFollower :listFollower="followers" v-if="checkListFollwer">
                                             </ModalFollower>
@@ -127,7 +127,7 @@
                                                 data-bs-target="#modalFriend">
                                                 <b>
                                                     {{ friends.length }}
-                                                </b> friends
+                                                </b> bạn bè
                                             </h5>
                                             <ModalFriend :listFriend="friends" v-if="checkListFriend" />
                                         </li>
@@ -161,7 +161,7 @@
                                 <div class="post" @click="handleName('post')">
                                     <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
                                         <i class="fa-solid fa-table-cells text-dark me-1"></i>
-                                        <span class="text-dark">POSTS</span>
+                                        <span class="text-dark">Bài đăng</span>
                                     </div>
                                 </div>
                             </template>
@@ -174,7 +174,7 @@
                                 <div class="photo" @click="handleName('photo')">
                                     <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3 ">
                                         <i class="fa-solid fa-image text-dark me-1"></i>
-                                        <span class="text-dark">PHOTOS</span>
+                                        <span class="text-dark">Ảnh</span>
                                     </div>
                                 </div>
                             </template>
@@ -187,7 +187,7 @@
                                 <div class="aboutMe" @click="handleName('about_me')">
                                     <div class="flex align-items-center gap-2 pe-3 pt-3 ps-3">
                                         <i class="fa-regular fa-address-card text-dark me-1"></i>
-                                        <span class="text-dark">ABOUT</span>
+                                        <span class="text-dark">Giới thiệu</span>
                                     </div>
                                 </div>
                             </template>

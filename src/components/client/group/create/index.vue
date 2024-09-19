@@ -1,4 +1,4 @@
-<template >
+<template>
     <div class="abc sidebar-default" style="width: 20vw; top: 0; overflow: hidden; height: 100vh;">
         <div id="sidebar-scrollbar " data-scrollbar="true" tabindex="-1"
             style="overflow: hidden; outline: none; position: relative; height: 100%;">
@@ -23,12 +23,12 @@
                                     <a href="#">Group</a>
                                 </router-link>
                             </li>
-                            <li class="breadcrumb-item active" aria-current="page">Create group</li>
+                            <li class="breadcrumb-item active" aria-current="page">Tạo nhóm mới</li>
                         </ol>
                     </nav>
                     <div class="w-100  px-3">
-                        <h4><b>Create group</b></h4>
-                        <div class="w-100 d-flex mb-2 align-items-center" style="height: 50px;">
+                        <h4><b>Tạo nhóm mới</b></h4>
+                        <div class="w-100 d-flex mb-2 align-items-center" style="height: auto;">
                             <div class="bg-light circle d-flex me-2 justify-content-center align-items-center"
                                 style="width:40px;height:40px; overflow: hidden;">
                                 <img :src="urlImg + myData.avatar" class="img-fluid" style="object-fit: cover;" alt="">
@@ -45,7 +45,7 @@
                         <div class="mb-3  cmn" style="position: relative;">
                             <input @input="input()" v-model="group_name" type="text" name="input" class="input-custom"
                                 placeholder=" ">
-                            <lable for="input" class=" small-title">Group name</lable>
+                            <lable for="input" class=" small-title">Tên nhóm</lable>
                         </div>
                         <div class="dropdown">
                             <div @click="toggle('select-privacy')" data-bs-toggle="dropdown" aria-expanded="false"
@@ -63,8 +63,8 @@
                             </div>
                             <ul class="dropdown-menu w-100 select-privacy">
                                 <li @click="setPrivacy('1')" class="dropdown-item">
-                                    <div class="w-100 d-flex mb-2 align-items-center" style="height: 65px;">
-                                        <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
+                                    <div class="w-100 d-flex mb-2 align-items-center" style="height: auto;">
+                                        <div class="bg-light circle  me-2 flex-center" style="width:40px;height:auto;">
                                             <i class="fas fa-globe-asia text-dark" style="font-size: 20px;"></i>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center"
@@ -72,7 +72,8 @@
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Public</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
-                                                    anyone can see everyone in the group and what they post</div>
+                                                    Bất kỳ ai cũng có thể xem mọi người trong nhóm và nội dung họ đăng
+                                                </div>
                                             </div>
                                         </div>
 
@@ -88,7 +89,8 @@
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Private</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
-                                                    Only group members what they post will be found</div>
+                                                    Chỉ những thành viên trong nhóm nội dung họ đăng mới được tìm thấy
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -102,17 +104,17 @@
                                     <i v-if="display == 2" class="fas fa-eye fa-2x"></i>
                                     <i v-else-if="display == -2" class="fas fa-eye-slash fa-2x"></i>
                                 </div>
-                                <div class="w-100" v-if="display == 2">Visible</div>
-                                <div class="w-100" v-else-if="display == -2">Hidden</div>
-                                <div v-else class=" w-100">Display mode</div>
+                                <div class="w-100" v-if="display == 2">Hiển thị</div>
+                                <div class="w-100" v-else-if="display == -2">Ẩn</div>
+                                <div v-else class=" w-100">Chế độ hiển thị</div>
                                 <i
                                     :class="{ 'fas fa-caret-down': true, 'rotated': isRotated2, 'reverse-rotation': !isRotated2 }"></i>
 
                             </div>
                             <ul class="dropdown-menu w-100 select-display">
                                 <li @click="setDisplay('2')" class="dropdown-item">
-                                    <div class="w-100 d-flex mb-2 align-items-center" style="height: 65px;">
-                                        <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
+                                    <div class="w-100 d-flex mb-2 align-items-center" style="height: auto;">
+                                        <div class="bg-light circle  me-2 flex-center" style="width:40px;height:auto;">
                                             <i class="fas fa-eye text-dark" style="font-size: 20px;"></i>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center"
@@ -120,15 +122,15 @@
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Visible</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
-                                                    Anyone can see this group</div>
+                                                    Bất kỳ ai cũng có thể nhìn thấy nhóm này</div>
                                             </div>
                                         </div>
 
                                     </div>
                                 </li>
                                 <li @click="setDisplay('-2')" class="dropdown-item pt-0">
-                                    <div class="w-100 d-flex mb-2 align-items-center" style="height: 65px;">
-                                        <div class="bg-light circle  me-2 flex-center" style="width:40px;height:40px;">
+                                    <div class="w-100 d-flex mb-2 align-items-center" style="height: auto;">
+                                        <div class="bg-light circle  me-2 flex-center" style="width:40px;height:auto;">
                                             <i class="fas fa-eye-slash text-dark" style="font-size: 20px;"></i>
                                         </div>
                                         <div class="d-flex justify-content-between align-items-center"
@@ -136,7 +138,7 @@
                                             <div class="pt-3" style="user-select:none; width: 100%;">
                                                 <h5><b style="font-weight:500;">Hidden</b></h5>
                                                 <div style=" white-space: normal; font-size: 12px;">
-                                                    Only members can see the group</div>
+                                                    Chỉ thành viên mới có thể xem nhóm</div>
                                             </div>
                                         </div>
                                     </div>
@@ -162,7 +164,7 @@
                                         hơp</a></li>
 
                             </ul>
-                            <span :class="{ 'has-content': hasContent }">invite friends</span>
+                            <span :class="{ 'has-content': hasContent }">Mời bạn bè</span>
                         </div>
 
                     </div>
@@ -170,8 +172,7 @@
                 <div class="p-5"></div>
                 <div class="p-5"></div>
                 <div class="nav-bottom flex-center">
-                    <button @click="createGroup()" id="btnCreate" class="btn btn-light w-100 mx-3"
-                        disabled>Create</button>
+                    <button @click="createGroup()" id="btnCreate" class="btn btn-light w-100 mx-3" disabled>Tạo</button>
                 </div>
             </div>
         </div>
@@ -184,68 +185,6 @@
                     <div class="collapse navbar-collapse mt-4" id="navbarSupportedContent"
                         style="position: absolute; right: 0;">
                         <ul class="navbar-nav ms-auto navbar-list">
-                            <li class="nav-item dropdown"><a href="#" class="search-toggle dropdown-toggle"
-                                    id="notification-drop" data-bs-toggle="dropdown"><i
-                                        class="ri-notification-4-line"></i></a>
-                                <div class="sub-drop dropdown-menu" aria-labelledby="notification-drop">
-                                    <div class="card shadow-none m-0">
-                                        <div class="card-header d-flex justify-content-between bg-primary">
-                                            <div class="header-title bg-primary">
-                                                <h5 class="mb-0 text-white">All Notifications</h5>
-                                            </div><small class="badge bg-light text-dark">4</small>
-                                        </div>
-                                        <div class="card-body p-0"><a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class=""><img class="avatar-40 rounded"
-                                                            src="/src/assets/client/images/user/01.jpg" alt=""></div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6 class="mb-0">Emma Watson Bni</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">95 MB</p><small
-                                                                class="float-right font-size-12">Just Now</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a><a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class=""><img class="avatar-40 rounded"
-                                                            src="/src/assets/client/images/user/02.jpg" alt=""></div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6 class="mb-0">New customer is join</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">Cyst Bni</p><small
-                                                                class="float-right font-size-12">5 days ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a><a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class=""><img class="avatar-40 rounded"
-                                                            src="/src/assets/client/images/user/03.jpg" alt=""></div>
-                                                    <div class="ms-3 w-100">
-                                                        <h6 class="mb-0">Two customer is left</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">Cyst Bni</p><small
-                                                                class="float-right font-size-12">2 days ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a><a href="#" class="iq-sub-card">
-                                                <div class="d-flex align-items-center">
-                                                    <div class=""><img class="avatar-40 rounded"
-                                                            src="/src/assets/client/images/user/04.jpg" alt=""></div>
-                                                    <div class="w-100 ms-3">
-                                                        <h6 class="mb-0">New Mail from Fenny</h6>
-                                                        <div class="d-flex justify-content-between align-items-center">
-                                                            <p class="mb-0">Cyst Bni</p><small
-                                                                class="float-right font-size-12">3 days ago</small>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a></div>
-                                    </div>
-                                </div>
-                            </li>
                             <li class="nav-item dropdown"><a href="#" class="d-flex align-items-center dropdown-toggle"
                                     id="drop-down-arrow" data-bs-toggle="dropdown" aria-haspopup="true"
                                     aria-expanded="false"><img :src="urlImg + myData.avatar"
@@ -256,58 +195,36 @@
                                     <div class="card shadow-none m-0">
                                         <div class="card-header bg-primary">
                                             <div class="header-title">
-                                                <h5 class="mb-0 text-white">Hello {{ myData.fullname }}</h5><span
-                                                    class="text-white font-size-12">Available</span>
+                                                <h5 class="mb-0 text-white">Xin chào {{ myData.fullname }}</h5>
                                             </div>
                                         </div>
                                         <div class="card-body p-0">
-                                            <div class="iq-sub-card iq-bg-primary-hover"><a href="/profile-client"
-                                                    class="">
-                                                    <div class="d-flex align-items-center">
-                                                        <div class="rounded card-icon bg-soft-primary"><i
-                                                                class="ri-file-user-line"></i></div>
-                                                        <div class="ms-3">
-                                                            <h6 class="mb-0">My Profile</h6>
-                                                            <p class="mb-0 font-size-12">View personal profile details.
-                                                            </p>
-                                                        </div>
+                                            <router-link to="/" @click="myProfile()" class="iq-sub-card iq-bg-primary-hover">
+                                                <div class="d-flex align-items-center">
+                                                    <div class="rounded card-icon bg-soft-primary"><i
+                                                            class="ri-file-user-line"></i></div>
+                                                    <div class="ms-3">
+                                                        <h6 class="mb-0">Trang cá nhân</h6>
+                                                        <p class="mb-0 font-size-12">Xem chi tiết hồ sơ cá nhân.
+                                                        </p>
                                                     </div>
-                                                </a></div><a href="../app/profile-edit.html"
+                                                </div>
+                                            </router-link>
+                                            <router-link :to="{ name: 'editProfile' }"
                                                 class="iq-sub-card iq-bg-warning-hover">
                                                 <div class="d-flex align-items-center">
                                                     <div class="rounded card-icon bg-soft-warning"><i
                                                             class="ri-profile-line"></i></div>
                                                     <div class="ms-3">
-                                                        <h6 class="mb-0">Edit Profile</h6>
-                                                        <p class="mb-0 font-size-12">Modify your personal details.</p>
-                                                    </div>
-                                                </div>
-                                            </a><a href="../app/account-setting.html"
-                                                class="iq-sub-card iq-bg-info-hover">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="rounded card-icon bg-soft-info"><i
-                                                            class="ri-account-box-line"></i></div>
-                                                    <div class="ms-3">
-                                                        <h6 class="mb-0">Account settings</h6>
-                                                        <p class="mb-0 font-size-12">Manage your account parameters.</p>
-                                                    </div>
-                                                </div>
-                                            </a><a href="../app/privacy-setting.html"
-                                                class="iq-sub-card iq-bg-danger-hover">
-                                                <div class="d-flex align-items-center">
-                                                    <div class="rounded card-icon bg-soft-danger"><i
-                                                            class="ri-lock-line"></i></div>
-                                                    <div class="ms-3">
-                                                        <h6 class="mb-0">Privacy Settings</h6>
-                                                        <p class="mb-0 font-size-12">Control your privacy parameters.
+                                                        <h6 class="mb-0">Chỉnh sửa trang cá nhân</h6>
+                                                        <p class="mb-0 font-size-12">Sửa đổi thông tin cá nhân của bạn.
                                                         </p>
                                                     </div>
                                                 </div>
-                                            </a>
+                                            </router-link>
                                             <div class="d-inline-block w-100 text-center p-3">
-                                                <a class="btn btn-primary iq-sign-btn" href="../dashboard/sign-in.html"
-                                                    role="button">
-                                                    Sign out
+                                                <a class="btn btn-primary iq-sign-btn" @click="signOut()" role="button">
+                                                    Đăng xuất
                                                     <i class="ri-login-box-line ms-2"></i>
                                                 </a>
                                             </div>
@@ -338,7 +255,7 @@
                                 style="filter: grayscale(100%);">
                         </div>
                         <div class="w-100 px-2 pt-3 pb-2 c">
-                            <h3 v-if="!group_name"><b style="color: #9c9c9c;">Group name</b></h3>
+                            <h3 v-if="!group_name"><b style="color: #9c9c9c;">Tên nhóm</b></h3>
                             <h3 v-else><b style="color: #000000;">{{ group_name }}</b></h3>
                             <p>
 
@@ -346,14 +263,14 @@
                                 <span v-else-if="privacy == -1"> <i class="fas fa-lock me-2"></i>Private group</span>
                                 <span v-else>Group privacy</span>
                                 <span style="color: black; font-weight: 500;">
-                                    - 1 member
+                                    - 1 thành viên
                                 </span>
                             </p>
                             <hr>
                             <p style="display: flex; gap: 20px; margin-left: 20px; margin-bottom: 10px">
-                                <span style="color: black; font-weight: 500; cursor: not-allowed;">Introduce</span>
+                                <span style="color: black; font-weight: 500; cursor: not-allowed;">Giới thiệu</span>
                                 <span style="color: black; font-weight: 500; cursor: not-allowed;">Post</span>
-                                <span style="color: black; font-weight: 500; cursor: not-allowed;">Member</span>
+                                <span style="color: black; font-weight: 500; cursor: not-allowed;">Thành viên</span>
                                 <span style="color: black; font-weight: 500; cursor: not-allowed;">Event</span>
                             </p>
 
@@ -390,17 +307,17 @@
                         <div class="right">
                             <div v-if="privacy == 0" class="card" style="border-radius: 10px; opacity: 0.6;">
                                 <div class="card-body" style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
-                                    <span style="font-weight: 600;">Introduct</span>
+                                    <span style="font-weight: 600;">Giới thiệu</span>
 
                                 </div>
                             </div>
                             <div v-else class="card" style="border-radius: 10px;">
                                 <div class="card-body b"
                                     style="border-radius: 10px; box-shadow: 0px 0px 5px #33333324;">
-                                    <span style="font-weight: 600;">Introduct</span>
+                                    <span style="font-weight: 600;">Giới thiệu</span>
                                     <div v-if="privacy == 1"
                                         class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
-                                        style="height: 65px; line-height: 18px;">
+                                        style="height: auto; line-height: 18px;">
                                         <div class="d-flex me-2 justify-content-center align-items-center"
                                             style="width:30px;height:30px;">
                                             <i class="fas fa-globe-asia text-dark" style="font-size: 20px;"></i>
@@ -409,13 +326,14 @@
                                             style="width:calc(100% - 60px);">
                                             <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                                 <h5><b style="font-weight:500;">Public</b></h5>
-                                                <p>Anyone can see everyone in the group and what they post</p>
+                                                <p>Bất kỳ ai cũng có thể nhìn thấy mọi người trong nhóm và nội dung họ
+                                                    đăng</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-if="privacy == -1"
                                         class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
-                                        style="height: 65px; line-height: 18px;">
+                                        style="height: auto; line-height: 18px;">
                                         <div class="d-flex me-2 justify-content-center align-items-center"
                                             style="width:30px;height:30px;">
                                             <i class="fas fa-lock text-dark" style="font-size: 20px;"></i>
@@ -424,13 +342,14 @@
                                             style="width:calc(100% - 60px);">
                                             <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                                 <h5><b style="font-weight:500;">Private</b></h5>
-                                                <p>only members can see everyone in the group and what they post</p>
+                                                <p>Chỉ thành viên mới có thể xem tất cả mọi người trong nhóm và nội dung
+                                                    họ đăng</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-if="display == 2"
                                         class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
-                                        style="height: 65px;">
+                                        style="height: auto;">
                                         <div class="d-flex me-2 justify-content-center align-items-center"
                                             style="width:30px;height:30px;">
                                             <i class="fas fa-eye text-dark" style="font-size: 20px;"></i>
@@ -439,13 +358,13 @@
                                             style="width:calc(100% - 60px);">
                                             <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                                 <h5><b style="font-weight:500;">Visible</b></h5>
-                                                <p>Anyone can see this group</p>
+                                                <p>Bất kỳ ai cũng có thể nhìn thấy nhóm này</p>
                                             </div>
                                         </div>
                                     </div>
                                     <div v-if="display == -2"
                                         class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
-                                        style="height: 65px;  line-height: 18px;">
+                                        style="height: auto;  line-height: 18px;">
                                         <div class="d-flex me-2 justify-content-center align-items-center"
                                             style="width:30px;height:30px;">
                                             <i class="fas fa-eye-slash text-dark" style="font-size: 20px;"></i>
@@ -454,7 +373,7 @@
                                             style="width:calc(100% - 60px);">
                                             <div class="d-flex flex-column pt-3 a" style="user-select:none;">
                                                 <h5><b style="font-weight:500;">Hidden</b></h5>
-                                                <p>Only group members can see this group</p>
+                                                <p>Chỉ thành viên nhóm mới có thể xem nhóm này</p>
                                             </div>
                                         </div>
                                     </div>
@@ -632,9 +551,27 @@ export default {
                 $('.left').css('flex', '2')
             }
         },
+        myProfile() {
+            this.$router.push({
+                name: "detailProfile",
+                params: { username: this.myInfo.username },
+            });
+        },
+        signOut() {
+            axios
+                .get('sign-out')
+                .then((res) => {
+                    this.$store.commit('REMOVE_CURRENT_CHAT');
+                    localStorage.removeItem('token');
+                    this.$router.push({ name: "sign-in" });
+                })
+                .catch((error) => {
+                    console.error('Logout failed:', error);
+                });
+        },
     },
 }
 </script>
-<style >
+<style>
 @import './stylee.css';
 </style>

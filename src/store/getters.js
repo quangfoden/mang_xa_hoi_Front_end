@@ -3,5 +3,4 @@ export default {
   getListConversation: (state) => state.listConversation,
   getConversation: (state) => state.conversation,
   getMyInfo: (state) => state.myInfo,
-  
 };

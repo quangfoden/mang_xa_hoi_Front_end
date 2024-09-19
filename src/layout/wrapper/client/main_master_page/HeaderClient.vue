@@ -71,7 +71,7 @@
                 <div class="card shadow-none m-0">
                   <div class="card-header d-flex justify-content-between bg-primary">
                     <div class="header-title">
-                      <h5 class="mb-0 text-white">Friend Request</h5>
+                      <h5 class="mb-0 text-white">yêu cầu kết bạn</h5>
                     </div>
                     <small v-if="count.length" class="badge bg-light text-dark ">
                       {{ count.length }}
@@ -95,25 +95,24 @@
                                   </b>
                                 </router-link>
                               </h6>
-                              <p class="mb-0">{{ v.mutual }} mutual friends </p>
+                              <p class="mb-0">{{ v.mutual }} Bạn chung </p>
                             </div>
                           </div>
                           <div class="d-flex align-items-center">
-                            <a class="me-3 btn btn-primary rounded" style="width: 60%;" @click="confirm(v)">Confirm</a>
-                            <a class="me-3 btn btn-secondary rounded" style="width: 60%;"
-                              @click="delRequest(v)">Delete</a>
+                            <a class="me-3 btn btn-primary rounded" style="width: 60%;" @click="confirm(v)">xác nhận</a>
+                            <a class="me-3 btn btn-secondary rounded" style="width: 60%;" @click="delRequest(v)">Xoá</a>
                           </div>
                         </div>
                       </div>
                     </template>
                     <div v-else class="card-body p-0 flex-center">
                       <div class="f-500">
-                        There are no invitations for you
+                        Không có lời mời kết bạn
                       </div>
                     </div>
                     <router-link v-if='request_friend.length > 5' :to="{ name: 'requests' }"
                       class="flex-center bg-hover">
-                      View More Request
+                    Xêm thêm
                     </router-link>
                   </div>
                 </div>
@@ -134,9 +133,10 @@
                 <div class="card shadow-none m-0">
                   <div class="card-header d-flex justify-content-between bg-primary">
                     <div class="header-title bg-primary">
-                      <h5 class="mb-0 text-white">All Notifications</h5>
+                      <h5 class="mb-0 text-white">Tất cả thông báo</h5>
                     </div>
-                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{ list_notifications.length }}</small>
+                    <small class="badge bg-light text-dark" v-if="list_notifications.length">{{
+                      list_notifications.length }}</small>
                   </div>
                   <div v-if="list_notifications.length > 0">
                     <div v-if="isView" class="card-body p-0 " style="max-height: 65vh; overflow: auto;">
@@ -161,17 +161,17 @@
                                 {{ v.sender }}
                               </h6>
                               <div class="d-flex text-dark justify-content-between align-items-center pe-3">
-                                <p class="mb-0">Invited you to the
+                                <p class="mb-0">Mời bạn tham gia
                                   <b :class="{ 'text-primary': v.status == 1 }">
                                     {{ v.group_name }}
                                   </b>
-                                  group
+                                  nhóm
                                 </p>
                               </div>
                             </div>
                             <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
                               {{ formatTime(v.created_at) }}
-                              agos
+                              trước
                             </small>
                           </div>
                         </router-link>
@@ -191,7 +191,7 @@
                                 :style="{ 'font-weight': 'bold' }">
                                 {{ v.sender }}</h6>
                               <div class="d-flex text-dark justify-content-between align-items-center pe-3">
-                                <p class="mb-0">Tagged you in a post by
+                                <p class="mb-0">Gắn thẻ bạn trong một bài đăng bởi
                                   <b :class="{ 'text-primary': v.status == 1 }">
                                     {{ v.name_poster }}
                                   </b>
@@ -200,7 +200,7 @@
                             </div>
                             <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
                               {{ formatTime(v.created_at) }}
-                              agos
+                              trước
                             </small>
                           </div>
                         </router-link>
@@ -222,13 +222,13 @@
                                 {{ v.sender }}
                               </h6>
                               <div class="d-flex text-dark justify-content-between align-items-center pe-3">
-                                <p class="mb-0">sent you a friend request
+                                <p class="mb-0">đã gửi cho bạn lời mời kết bạn
                                 </p>
                               </div>
                             </div>
                             <small class="float-right font-size-12" :class="{ 'text-dark': v.status == 0 }">
                               {{ formatTime(v.created_at) }}
-                              agos
+                              trước
                             </small>
                           </div>
                         </router-link>
@@ -241,40 +241,16 @@
                   </div>
                   <div v-else class="card-body p-0 flex-center">
                     <div class="f-500">
-                      There aren't any notifications
+                      Không có bất kỳ thông báo nào
                     </div>
                   </div>
                 </div>
               </div>
             </li>
             <li class="nav-item dropdown">
-              <a href="#" class="dropdown-toggle" id="mail-drop" data-bs-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
+              <router-link  :to="{name:'message'}">
                 <i class="ri-mail-line"></i>
-              </a>
-              <div class="sub-drop dropdown-menu" aria-labelledby="mail-drop">
-                <div class="card shadow-none m-0">
-                  <div class="card-header d-flex justify-content-between bg-primary">
-                    <div class="header-title bg-primary">
-                      <h5 class="mb-0 text-white">All Message</h5>
-                    </div>
-                    <small class="badge bg-light text-dark">4</small>
-                  </div>
-                  <div class="card-body p-0 ">
-                    <a href="#" class="iq-sub-card">
-                      <div class="d-flex  align-items-center">
-                        <div class="">
-                          <img class="avatar-40 rounded" src="../../../../assets/client/images/user/01.jpg" alt="">
-                        </div>
-                        <div class=" w-100 ms-3">
-                          <h6 class="mb-0 ">Bni Emma Watson</h6>
-                          <small class="float-left font-size-12">13 Jun</small>
-                        </div>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-              </div>
+              </router-link>
             </li>
             <li class="nav-item dropdown">
               <a href="#" class="d-flex align-items-center dropdown-toggle" id="drop-down-arrow"
@@ -291,8 +267,7 @@
                 <div class="card shadow-none m-0">
                   <div class="card-header  bg-primary">
                     <div class="header-title">
-                      <h5 class="mb-0 text-white">Hello, {{ myInfo.fullname }}</h5>
-                      <span class="text-white font-size-12">Available</span>
+                      <h5 class="mb-0 text-white">Xin chào, {{ myInfo.fullname }}</h5>
                     </div>
                   </div>
                   <div class="card-body p-0 ">
@@ -302,8 +277,8 @@
                           <i class="ri-file-user-line"></i>
                         </div>
                         <div class="ms-3">
-                          <h6 class="mb-0 ">My Profile</h6>
-                          <p class="mb-0 font-size-12">View personal profile details.</p>
+                          <h6 class="mb-0 ">Trang cá nhân</h6>
+                          <p class="mb-0 font-size-12">Xem thông tin chi tiết trang cá nhân.</p>
                         </div>
                       </div>
                     </router-link>
@@ -313,37 +288,13 @@
                           <i class="ri-profile-line"></i>
                         </div>
                         <div class="ms-3">
-                          <h6 class="mb-0 ">Edit Profile</h6>
-                          <p class="mb-0 font-size-12">Modify your personal details.</p>
+                          <h6 class="mb-0 ">Chỉnh sửa trang cá nhân</h6>
+                          <p class="mb-0 font-size-12">Thay đổi thông tin cá nhân.</p>
                         </div>
                       </div>
                     </router-link>
-                    <a href="../app/account-setting.html" class="iq-sub-card iq-bg-info-hover">
-                      <div class="d-flex align-items-center">
-                        <div class="rounded card-icon bg-soft-info">
-                          <i class="ri-account-box-line"></i>
-                        </div>
-                        <div class="ms-3">
-                          <h6 class="mb-0 ">Account settings</h6>
-                          <p class="mb-0 font-size-12">Manage your account parameters.</p>
-                        </div>
-                      </div>
-                    </a>
-                    <a href="../app/privacy-setting.html" class="iq-sub-card iq-bg-danger-hover">
-                      <div class="d-flex align-items-center">
-                        <div class="rounded card-icon bg-soft-danger">
-                          <i class="ri-lock-line"></i>
-                        </div>
-                        <div class="ms-3">
-                          <h6 class="mb-0 ">Privacy Settings</h6>
-                          <p class="mb-0 font-size-12">Control your privacy parameters.
-                          </p>
-                        </div>
-                      </div>
-                    </a>
                     <div class="d-inline-block w-100 text-center p-3">
-                      <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Sign
-                        out<i class="ri-login-box-line ms-2"></i></a>
+                      <a @click="signOut()" class="btn btn-primary iq-sign-btn" role="button">Đăng xuất<i class="ri-login-box-line ms-2"></i></a>
                     </div>
                   </div>
                 </div>

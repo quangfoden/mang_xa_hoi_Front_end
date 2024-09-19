@@ -214,7 +214,7 @@
                 </div>
                 <div class="ms-3" style="flex: 1;">
                   <h6 class="mb-0">{{ v.fullname }}</h6>
-                  <p class="mb-0">{{ v.isOnline ? 'Just now' : 'Offline' }}</p>
+                  <p class="mb-0">{{ v.isOnline ? 'Online' : 'Offline' }}</p>
                 </div>
               </div>
             </div>
@@ -305,6 +305,8 @@ export default {
     this.setPrivacy();
     this.loadPost();
     this.getFriend();
+    console.log(this.list_online_friends);
+
   },
   mounted() {
     this.handleInputBootstrap()
@@ -329,22 +331,22 @@ export default {
       }
     },
     async updateOnlineUser(onlineUsers) {
-  if (onlineUsers && onlineUsers.length > 0) { 
-    if (this.list_friend.length > 0) {
-      this.list_friend.forEach(friend => {
-        const latestOnlineUsers = onlineUsers[onlineUsers.length - 1];
-        if (latestOnlineUsers) { 
-          const onlineUser = latestOnlineUsers.find((user) => user.id === friend.id);
-          if (onlineUser) {
-            friend.isOnline = true;
-          } else {
-            friend.isOnline = false;
-          }
+      if (onlineUsers && onlineUsers.length > 0) {
+        if (this.list_friend.length > 0) {
+          this.list_friend.forEach(friend => {
+            const latestOnlineUsers = onlineUsers[onlineUsers.length - 1];
+            if (latestOnlineUsers) {
+              const onlineUser = latestOnlineUsers.find((user) => user.id === friend.id);
+              if (onlineUser) {
+                friend.isOnline = true;
+              } else {
+                friend.isOnline = false;
+              }
+            }
+          });
         }
-      });
-    }
-  }
-},
+      }
+    },
     totalComments(a) {
       return this.list_comment.filter(value => value.id_post == a).length;
     },

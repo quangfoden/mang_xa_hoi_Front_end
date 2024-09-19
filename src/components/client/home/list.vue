@@ -19,7 +19,7 @@
         <li>
             <router-link :to="{ name: 'friends' }">
                 <i class="fa-solid fa-user-group me-4" style="font-size: 17px;"></i>
-                <span style="font-size: 18px;">Friends</span>
+                <span style="font-size: 18px;">Bạn bè</span>
             </router-link>
         </li>
         <li>
@@ -31,13 +31,13 @@
         <li>
             <router-link :to="{ name: 'group' }">
                 <i class="fa-solid fa-users me-4" style="font-size: 17px;"></i>
-                <span style="font-size: 18px;">Group</span>
+                <span style="font-size: 18px;">Nhóm</span>
             </router-link>
         </li>
         <hr>
         <h4 v-if="list_group.length > 0" style="margin: 0px;">
             <b>
-                Your shortcut
+               Lối tắt của bạn
             </b>
         </h4>
         <li v-for="(v, k) in list_group">

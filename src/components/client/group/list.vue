@@ -1,6 +1,6 @@
 <template>
     <div class=" w-100 mt-2 mb-2" style="height: 4vh;">
-        <h4><b>Group</b></h4>
+        <h4><b>Nhóm</b></h4>
     </div>
     <div class="w-100 ">
         <div class="iq-search-bar device-search w-100 mt-1 mb-1" style="padding: 0px !important;">
@@ -21,7 +21,7 @@
             </div>
             <div class="flex-center">
                 <div class="d-flex flex-column" style="user-select:none;">
-                    <h5><b style="font-weight:500;">Discover</b></h5>
+                    <h5><b style="font-weight:500;">Khám phá</b></h5>
                 </div>
             </div>
         </div>
@@ -32,19 +32,19 @@
             </div>
             <div class="flex-center">
                 <div class="d-flex flex-column" style="user-select:none;">
-                    <h5><b style="font-weight:500;">Your Groups</b></h5>
+                    <h5><b style="font-weight:500;">Nhóm của bạn</b></h5>
                 </div>
             </div>
         </div>
         <div class="w-100 mt-2">
             <button @click="viewCreate()" class="btn btn-primary w-100">
                 <i class="fas fa-plus me-1"></i>
-                Create your group
+               Tạo nhóm
             </button>
             <hr>
         </div>
         <div class="w-100" v-if="list_manager.length > 0">
-            <h5 style="font-weight: 500;">Groups you manage</h5>
+            <h5 style="font-weight: 500;">Nhóm bạn quản lý</h5>
             <div @click="detail(v.id)" v-for="(v, k) in list_manager" class="w-100 d-flex bg-hover"
                 style="border-radius: 10px; padding: 0.45rem 0.5rem; cursor: pointer;">
                 <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;">
@@ -59,7 +59,7 @@
 
         </div>
         <div class="w-100" v-if="list_join.length > 0">
-            <h5 style="font-weight: 500;">Group you have joined</h5>
+            <h5 style="font-weight: 500;">Nhóm bạn đã tham gia</h5>
             <div @click="detail(v.id)" v-for="(v, k) in list_join" class="w-100 d-flex bg-hover"
                 style="border-radius: 10px; padding: 0.45rem 0.5rem; cursor: pointer;">
                 <div class="me-2 flex-center" style="overflow: hidden; width: 53px; height: 53px; border-radius: 15px;">
@@ -68,7 +68,7 @@
                 <div style="flex: 1; flex-direction: column; line-height: 1.25rem;"
                     class=" d-flex justify-content-center">
                     <b style="font-size: 15px;">{{ v.group_name }}</b>
-                    <p class="p-0 m-0">{{ v.member }} members</p>
+                    <p class="p-0 m-0">{{ v.member }} thành viên</p>
                 </div>
             </div>
 

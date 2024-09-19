@@ -1,16 +1,16 @@
 <template>
     <div class="col-md-6 bg-white pt-5 pt-5 pb-lg-0 pb-5">
         <div class="sign-in-from">
-            <h1 class="mb-0">Sign in</h1>
-            <p>NextFuture helps you connect and share with the people in your life.</p>
+            <h1 class="mb-0">Đăng nhập</h1>
+            <p>Kết nối và chia sẽ với mọi người</p>
             <form class="mt-4">
                 <div class="form-group">
-                    <label class="form-label" for="exampleInputEmail1">Email address</label>
+                    <label class="form-label" for="exampleInputEmail1">Email </label>
                     <input v-model="sign_in.username" type="text" class="form-control mb-0" id="exampleInputEmail1"
                         placeholder="Enter email">
                 </div>
                 <div class="form-group ">
-                    <label class="form-label" for="exampleInputPassword1">Password</label>
+                    <label class="form-label" for="exampleInputPassword1">Mật khẩu</label>
                     <!-- <a href="#" class="float-end">Forgot password?</a> -->
                     <div class=" position-relative">
                         <input v-model="sign_in.password" type="password" class="form-control mb-0" ref="password"
@@ -24,20 +24,19 @@
                 <div class="d-inline-block w-100">
                     <div class="form-check d-inline-block mt-2 pt-1">
                         <input v-model="sign_in.remember" type="checkbox" class="form-check-input" id="customCheck11">
-                        <label class="form-check-label" for="customCheck11">Remember Me</label>
+                        <label class="form-check-label" for="customCheck11">Nhớ mật khẩu</label>
                     </div>
-                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Sign
-                        In</button>
+                    <button v-if="!loading" type="submit" class="btn btn-primary w-100" @click="signIn()">Đăng nhập</button>
                     <button v-else class="btn btn-secondary w-100 " disabled>
                         <img src="../../../../assets/client/images/page-img/loading.gif" alt="loader"
                             style="height: 20px;">
-                        Sign In
+                        Đăng nhập
                     </button>
                 </div>
                 <div class="sign-info text-center">
-                    <span class="dark-color d-inline-block line-height-2">Don't have an account?
+                    <span class="dark-color d-inline-block line-height-2">Bạn chưa có tài khoản?
                         <router-link :to="{ name: 'sign-up' }">
-                            Sign up
+                            Đăng ký
                         </router-link>
                     </span>
                 </div>
@@ -129,8 +128,8 @@ export default {
         activeMail() {
             const enterConfirmationCode = async () => {
                 const result = await Swal.fire({
-                    title: "Enter your confirmation code",
-                    inputLabel: `Please check your email and enter the code below. This code will expire in 1 minute`,
+                    title: "Nhập mã xác nhận của bạn",
+                    inputLabel: `Vui lòng kiểm tra email của bạn và nhập mã bên dưới. Mã này sẽ hết hạn sau 1 phút`,
                     input: "text",
                     inputPlaceholder: "Enter your code",
                     inputAttributes: {
@@ -139,12 +138,12 @@ export default {
                         autocorrect: "off",
                     },
                     html: `
-                        <div class='resent-mail'>Resent mail</div>
+                        <div class='resent-mail'>gửi lại mã</div>
                         <div class="border-top-loading-resent"></div>
                     `,
                     showCancelButton: true,
-                    confirmButtonText: "Activate",
-                    cancelButtonText: "Cancel",
+                    confirmButtonText: "Xác thực",
+                    cancelButtonText: "Bỏ qua",
                     allowOutsideClick: false,
                     didOpen: () => {
                         this.count_time = 60
@@ -172,7 +171,7 @@ export default {
                     const response = await axios.post('active-mail', { hash_active });
                     return response.data;
                 } catch (error) {
-                    return { status: 0, message: "Something went wrong while activating your account" };
+                    return { status: 0, message: "Đã xảy ra sự cố khi kích hoạt tài khoản của bạn" };
                 }
             };
 
@@ -188,7 +187,7 @@ export default {
                             isActivationSuccessful = true;
                             Swal.fire({
                                 icon: "success",
-                                title: "Account activated",
+                                title: "Tài khoản đã được kích hoạt",
                                 text: response.message,
                                 allowOutsideClick: false,
                             });
@@ -197,8 +196,8 @@ export default {
                                 icon: "error",
                                 text: response.message,
                                 showCancelButton: true,
-                                confirmButtonText: "Retry",
-                                cancelButtonText: "Cancel",
+                                confirmButtonText: "thử lại",
+                                cancelButtonText: "bỏ qua",
                                 allowOutsideClick: false,
                             });
 
@@ -252,7 +251,7 @@ export default {
                         Swal.fire({
                             icon: "error",
                             title: "Erorr...",
-                            text: "Account information is incorrect",
+                            text: "Thông tin tài khoản không đúng",
                             showConfirmButton: false
                         });
                         setTimeout(() => {
@@ -266,7 +265,7 @@ export default {
                 Swal.fire({
                     icon: "error",
                     title: "Erorr...",
-                    text: "Please enter complete information",
+                    text: "Vui lòng nhập thông tin đầy đủ",
                     showConfirmButton: false
                 });
                 setTimeout(() => {

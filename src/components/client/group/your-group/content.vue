@@ -1,7 +1,7 @@
 <template >
     <div class="w-100 ps-4">
         <div class=" mt-3 mb-1 d-flex justify-content-between">
-            <b class="text-dark">All the groups you have joined ({{ this.group_participated.length }})</b>
+            <b class="text-dark">Tất cả các nhóm bạn đã tham gia ({{ this.group_participated.length }})</b>
         </div>
         <div class="row mx-0">
             <div class="d-flex" style="gap: 7px; flex-direction: row; flex-wrap: wrap; position: relative;">
@@ -16,11 +16,11 @@
                                 </div>
                                 <div class=" flex-column d-flex justify-content-center">
                                     <b class="text-dark ">{{ v.group_name }}</b>
-                                    <p class="p-0 m-0 text-dark">Members: {{ v.member }}</p>
+                                    <p class="p-0 m-0 text-dark">Thành viên: {{ v.member }}</p>
                                 </div>
                             </div>
                             <div class="mt-2 d-flex">
-                                <button class="btn btn-primary me-1" style="flex: 1;">See group</button>
+                                <button class="btn btn-primary me-1" style="flex: 1;">Xem nhóm</button>
 
                                 <div class="dropdown" @click="cancelEvent($event)">
                                     <button class="btn btn-light " type="button" data-bs-toggle="dropdown"
@@ -30,14 +30,13 @@
                                     <ul class="dropdown-menu">
                                         <li @click="copyPath(v)">
                                             <a class="dropdown-item">
-                                                <i class="fas me-2 fa-copy"></i> Copy path</a>
+                                                <i class="fas me-2 fa-copy"></i> Sao chép đường dẫn</a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item"><i class="fas me-2 fa-share"></i> Share</a>
                                         </li>
                                         <li @click="leaveGroup(v)">
-                                            <a class="dropdown-item"><i class="fas me-2 fa-sign-out-alt"></i> Leave the
-                                                group</a>
+                                            <a class="dropdown-item"><i class="fas me-2 fa-sign-out-alt"></i> Rời nhóm</a>
                                         </li>
                                     </ul>
                                 </div>

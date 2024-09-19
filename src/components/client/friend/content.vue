@@ -1,10 +1,10 @@
 <template>
     <div @wheel="handleMouseWheel" v-if="isView" class="w-100 ps-4">
         <div class=" mt-3 mb-1 d-flex justify-content-between">
-            <h3 class="">Friend request</h3>
+            <h3 class="">yêu cầu kết bạn</h3>
             <router-link :to="{ name: 'requests' }">
                 <button v-if="request_friend.length >= 6" type="button" class="me-3 btn seeall text-primary">
-                    <b>See all</b>
+                    <b>Xem tất cả</b>
                 </button>
             </router-link>
         </div>
@@ -24,12 +24,12 @@
                                     <b class="text-nowrap text-secondary">{{ v.fullname }}</b>
                                 </div>
                                 <div class="mb-1 text-secondary">
-                                    <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
+                                    <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} bạn chung</span>
                                     <span v-else class="text-white " style="user-select: none;">a</span>
                                 </div>
                                 <div class="mt-1">
                                     <button v-if="v.status_button == 0" class="btn btn-primary w-100"
-                                        @click="confirm(v, k, $event)">Confirm</button>
+                                        @click="confirm(v, k, $event)">Xác nhận</button>
                                     <button v-else @click="calmDown($event)" class="btn btn-light w-100  py-0"
                                         style="height: 37px;">
                                         <div class="col-sm-12 flex-center" style="flex-direction: row;">
@@ -39,7 +39,7 @@
                                     </button>
                                 </div>
                                 <div class="mt-1">
-                                    <button class="btn btn-secondary w-100" @click="delRequest(v, $event)">Delete</button>
+                                    <button class="btn btn-secondary w-100" @click="delRequest(v, $event)">Xoá</button>
                                 </div>
                             </div>
                         </router-link>
@@ -47,7 +47,7 @@
                 </template>
                 <div v-else class="flex-center w-100">
                     <h4>
-                        <b>Select the name of the person whose profile you want to preview</b>
+                        <b>không có lời mời kết bạn</b>
                     </h4>
                 </div>
             </div>
@@ -64,11 +64,11 @@
 
         <div class=" mt-3 mb-1 d-flex justify-content-between">
             <h3>
-                People you may know
+                bạn bè bạn có thể biết 
             </h3>
             <router-link :to="{ name: 'suggestions' }">
                 <button v-if="list_friend.length >= 6" type="button" class="me-3 btn seeall text-primary">
-                    <b>See all</b>
+                    <b>Xem tất cả</b>
                 </button>
             </router-link>
         </div>
@@ -88,17 +88,16 @@
                                     <b class="text-nowrap text-secondary">{{ v.fullname }}</b>
                                 </div>
                                 <div class="mb-1 text-nowrap text-secondary">
-                                    <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} mutual friends</span>
+                                    <span v-if="v.mutual > 0" class="text-secondary">{{ v.mutual }} bạn chung</span>
                                     <span v-else class="text-white " style="user-select: none;">a</span>
                                 </div>
                                 <template v-if="v.friendStatus == false">
                                     <div class="mt-1">
-                                        <button class="btn btn-primary w-100" @click="addFriend(v, k, $event)">Add
-                                            friend</button>
+                                        <button class="btn btn-primary w-100" @click="addFriend(v, k, $event)">Thêm bạn bè</button>
                                     </div>
                                     <div class="mt-1">
                                         <button class="btn btn-secondary w-100"
-                                            @click="delSuggest(k, $event)">Delete</button>
+                                            @click="delSuggest(k, $event)">Xoá</button>
                                     </div>
                                 </template>
                                 <template v-else>
@@ -108,7 +107,7 @@
                                     </div>
                                     <div class="mt-1">
                                         <button class="btn btn-secondary w-100"
-                                            @click="unRequest(v, k, $event)">Cancel</button>
+                                            @click="unRequest(v, k, $event)">Bỏ qua</button>
                                     </div>
                                 </template>
                             </div>
@@ -125,7 +124,7 @@
             </div>
             <div v-else class="flex-center w-100">
                 <h4>
-                    <b>There are no suggestions</b>
+                    <b>Không có gợi ý</b>
                 </h4>
             </div>
 

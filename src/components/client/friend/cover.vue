@@ -6,7 +6,7 @@
                     alt="cover" class="img-fluid" style="width: 150px; height: 150px;">
                 <div>
                     <h4>
-                        <b>Select the name of the person whose profile you want to preview</b>
+                        <b>Chọn tên của người có hồ sơ bạn muốn xem trước</b>
                     </h4>
                 </div>
             </div>

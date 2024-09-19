@@ -46,19 +46,19 @@
                                             <li data-bs-toggle="modal" data-bs-target="#editPostModal">
                                                 <a class="dropdown-item d-flex align-items-center">
                                                     <i class="fa-solid fa-pen me-1"></i>
-                                                    Edit post
+                                                    Chỉnh sửa
                                                 </a>
                                             </li>
                                             <li data-bs-toggle="modal" data-bs-target="#editPrivacyModal">
                                                 <a class="dropdown-item">
                                                     <i class="fa-solid fa-lock me-1"></i>
-                                                    Edit privacy
+                                                    quyền riêng tư
                                                 </a>
                                             </li>
                                             <li data-bs-toggle="modal" data-bs-target="#deletePostModal">
                                                 <div class="dropdown-item">
                                                     <i class="fa-solid fa-x me-1"></i>
-                                                    Delete post
+                                                   Xoá
                                                 </div>
                                             </li>
                                         </ul>
@@ -73,7 +73,7 @@
                             <div class="modal-dialog modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h1 class="modal-title fs-5" id="exampleModalLabel">Update privacy</h1>
+                                        <h1 class="modal-title fs-5" id="exampleModalLabel">cập nhận quyền riêng tư</h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal"
                                             aria-label="Close"></button>
                                     </div>

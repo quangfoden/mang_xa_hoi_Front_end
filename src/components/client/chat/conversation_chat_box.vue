@@ -10,6 +10,9 @@
                 <b>{{ myInfo.id == conversation.sender.id ?
                     conversation.receiver.fullname : conversation.sender.fullname }}</b>
             </div>
+            <span @click="openVideoCall(callRecipients)" class="d-flex align-items-center fs-4"
+                style="cursor: pointer;">
+                <i class="fa-solid fa-video"></i></span>
         </nav>
         <div class="w-100 py-4 chat-box-content" :style="{ height: isReply ? '80%' : 'calc(100vh - 12rem)' }">
             <div class="d-flex align-items-center justify-content-center mb-4">
@@ -26,7 +29,7 @@
                         </span>
                     </div>
                     <router-link :to="{ name: 'detailProfile', params: { username: receiver.username } }">
-                        <button class="btn-see-personal-page">See personal page</button>
+                        <button class="btn-see-personal-page">Xem trang cá nhân</button>
                     </router-link>
                 </div>
             </div>
@@ -51,7 +54,8 @@
                                 {{ v.message }}
                             </div>
                             <div class="box-icon" style="gap: 10px; display: none;">
-                                <i @click="deleteMessage(v)" class="fas fa-trash-alt"></i>
+                                <i @click="deleteMessage(v)" v-if="myInfo.id == v.sender_id"
+                                    class="fas fa-trash-alt"></i>
                                 <i @click="replyMessage(v)" class="fas fa-reply"></i>
                             </div>
                             <div v-if="v.reply" class="absolute box-reply">
@@ -76,14 +80,13 @@
             </div>
             <div class="d-flex align-items-center chat-form" style="padding: 0 20px 10px 40px;">
                 <input type="text" v-model="message" @keyup.enter="sendMessage()" ref="inputChat"
-                    class="form-control me-3" placeholder="Type your message">
-                <button class="btn btn-primary d-flex align-items-center p-2">
+                    class="form-control me-3" placeholder="Nhập tin nhắn ...">
+                <button @click="sendMessage()" class="btn btn-primary d-flex align-items-center p-2">
                     <i class="far fa-paper-plane"></i>
-                    <span class="d-none d-lg-block ms-1" @click="sendMessage()">Send</span>
+                    <span class="d-none d-lg-block ms-1">Gửi</span>
                 </button>
             </div>
         </div>
-
     </div>
 </template>
 <script>
@@ -100,10 +103,12 @@ export default {
         },
         conversation: {
             type: Object,
-        }
+        },
+
     },
     watch: {
         conversation(newV) {
+            this.callRecipients = newV.sender.id
             this.isReply = false
             this.selectUser()
             this.$nextTick(() => {
@@ -122,10 +127,15 @@ export default {
                 message: 'test'
             },
             isReply: false,
+            callRecipients: null
         }
     },
     mounted() {
-        if (this.conversation) this.selectUser()
+
+        if (this.conversation) {
+
+            this.selectUser()
+        }
     },
     computed: {
         ...mapGetters(['getListConversation'])
@@ -135,9 +145,11 @@ export default {
             if (this.conversation.sender.id == this.myInfo.id) {
                 this.sender = this.conversation.sender
                 this.receiver = this.conversation.receiver
+                this.callRecipients = this.conversation.receiver.id
             } else {
                 this.sender = this.conversation.receiver
                 this.receiver = this.conversation.sender
+                this.callRecipients = this.conversation.sender.id
             }
         },
         async sendMessage() {
@@ -180,7 +192,11 @@ export default {
                 // Use el.scrollIntoView() to instantly scroll to the element
                 el.scrollIntoView({ behavior: 'smooth' });
             }
+        },
+        openVideoCall(userId) {
+            window.open(`/video-call?userId=${userId}`, '_blank', 'width=800,height=600');
         }
+
     },
 }
 </script>

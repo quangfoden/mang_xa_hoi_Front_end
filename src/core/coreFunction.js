@@ -29,13 +29,13 @@ export default {
     },
     hoursDifference(time) {
         const units = [
-            ["Just now", 1], // seconds
-            ["minutes", 60], // minutes
-            ["hours", 60], // hours
-            ["days", 24], // days
-            ["weeks", 7], // weeks
-            ["months", 4.34524], // months, average weeks in a month
-            ["years", 12], // years
+            ["giây", 1], // seconds
+            ["phút", 60], // minutes
+            ["giờ", 60], // hours
+            ["ngày", 24], // days
+            ["tuần", 7], // weeks
+            ["tháng", 4.34524], // months, average weeks in a month
+            ["năm", 12], // years
         ];
 
         let currentTime = new Date();

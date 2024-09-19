@@ -1,7 +1,7 @@
 <template>
     <div class="col-lg-3 chat-data-left scroller  w-100">
         <div class="chat-search pt-3 ps-3">
-            <h4 class="mb-2 f-500">Conversation</h4>
+            <h4 class="mb-2 f-500">Tất cả tin nhắn</h4>
             <div class="chat-searchbar ">
                 <div class="form-group chat-search-data m-0">
                     <input type="text" class="form-control round" id="chat-search" placeholder="Search">
@@ -28,7 +28,9 @@
                                         v?.receiver?.fullname) }}
                                     </h6>
                                     <div v-if="v.nearMess" class="d-flex align-items-center gap-1">
-                                        <span>{{ v.nearMess.message }}</span>
+                                        <span
+                                            style=" display: inline-block;width: 5em;overflow: hidden; white-space: nowrap; text-overflow: ellipsis;">{{
+                                            v.nearMess.message }}</span>
                                         <i class="fas fa-circle "
                                             style="font-size: 3px; width: fit-content; margin-right: 0;"></i>
                                         <span class="text-nowrap ">
@@ -36,17 +38,17 @@
                                         </span>
                                     </div>
                                 </div>
-                                <div class="chat-meta  mt-2 me-1">
-                                    <div class="chat-msg-counter bg-primary text-center text-white">20</div>
+                                <!-- <div class="chat-meta  mt-2 me-1">
+                                    <div class="chat-msg-counter bg-primary text-center text-white"></div>
 
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </a>
                 </li>
             </ul>
         </div>
-    </div>'
+    </div>
 </template>
 <script>
 import axios, { url } from '../../../core/coreRequest'

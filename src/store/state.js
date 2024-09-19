@@ -3,5 +3,4 @@ export default {
     listConversation: null,
     conversation: null,
     myInfo: null,
-    
 };
