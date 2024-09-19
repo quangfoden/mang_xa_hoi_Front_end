@@ -65,7 +65,7 @@ import axios from '../../../../core/coreRequest'
 export default {
     name: "app",
     components: {
-        HeaderClient
+        HeaderClient,
     },
     data() {
         return {
@@ -103,16 +103,19 @@ export default {
             conversation: null,             // truyền cuộc hội thoại
         }
     },
-    mounted() {
-        this.getMyInfo()
+    async mounted() {
+        await this.getMyInfo()
     },
     methods: {
-        getMyInfo() {
-            axios
-                .get('profile/data')
-                .then((res) => {
-                    this.myInfo = res.data.myInfo;
-                });
+        async getMyInfo() {
+            try {
+                const res = await axios.get('profile/data');
+                this.myInfo = res.data.myInfo;
+                this.userId = this.myInfo.id;
+                console.log(this.userId); // Xác nhận rằng userId đã được gán
+            } catch (error) {
+                console.error('Error fetching user info:', error);
+            }
         },
         handleSendActiveFromSearch(value) {
             this.typeViewSearch = value
@@ -178,7 +181,7 @@ export default {
         },
         handleSelectConversation(value) {
             this.conversation = value
-        }
+        },
     }
 }
 </script>

@@ -3,23 +3,19 @@
         <h2>1. Start your Webcam</h2>
         <div class="videos">
             <span>
-                <h3>Local Stream</h3>
                 <video ref="webcamVideo" autoplay playsinline></video>
             </span>
             <span>
-                <h3>Remote Stream</h3>
+                <h3>Friend</h3>
                 <video ref="remoteVideo" autoplay playsinline></video>
             </span>
         </div>
-        <p>Answer the call from a different browser window or device</p>
-        <input v-model="callId" placeholder="Enter Call ID" />
-        <button :disabled="!callId" @click="answerCall">Answer</button>
-        <h2>4. Hangup</h2>
-        <button :disabled="!remoteStream" @click="hangupCall">Hangup</button>
+        <button :disabled="!remoteStream" @click="hangupCall">Kết thúc</button>
     </div>
 </template>
 
 <script>
+import axios from '../../core/coreRequest'
 import { firestore, collection, doc, setDoc, getDoc, updateDoc, onSnapshot, addDoc } from '../../firebase';
 const servers = {
     iceServers: [
@@ -29,21 +25,48 @@ const servers = {
 };
 
 export default {
-    
+
     data() {
         return {
             pc: new RTCPeerConnection(servers),
             localStream: null,
             remoteStream: null,
-            callId: '',
+            callId: null,
+            userId: null,
+            myInfo: null
         };
     },
     async mounted() {
-        // Start webcam automatically when the component is mounted
         await this.startWebcam();
-        await this.createCall()
+        if (this.callId) {
+            console.log('có callId');
+            this.answerCall();
+        }
+        else {
+            await this.createCall()
+            console.log('tạo mới call');
+        }
     },
+
+    created() {
+        this.getMyInfo()
+        if (this.$route.query.userId) {
+            this.userId = this.$route.query.userId;
+        }
+        if (this.$route.query.callId) {
+            this.callId = this.$route.query.callId;
+        }
+    }
+    ,
     methods: {
+        getMyInfo() {
+            axios
+                .get('profile/data')
+                .then((res) => {
+                    this.myInfo = res.data.myInfo;
+                });
+        },
+
         async startWebcam() {
             try {
                 this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
@@ -65,6 +88,7 @@ export default {
                 console.error('Error starting webcam: ', error);
             }
         },
+
         async createCall() {
             try {
                 // Create a reference to a new document in 'calls' collection
@@ -98,6 +122,9 @@ export default {
                         const answerDescription = new RTCSessionDescription(data.answer);
                         this.pc.setRemoteDescription(answerDescription);
                     }
+                    if (data?.callStatus === 'ended') {
+                        this.hangupCall();
+                    }
                 });
 
                 onSnapshot(answerCandidatesRef, (snapshot) => {
@@ -108,12 +135,28 @@ export default {
                         }
                     });
                 });
+                if (this.userId && this.myInfo?.nickname) {
+                    console.log('notificationsRef');
+
+                    const notificationsRef = collection(firestore, 'notifications');
+                    await addDoc(notificationsRef, {
+                        userId: this.userId,
+                        callerName: this.myInfo.nickname,
+                        message: 'Bạn có một cuộc gọi video mới!',
+                        callId: this.callId,
+                        type: 'video-call',
+                        timestamp: new Date(),
+                    });
+                } else {
+                    console.error('userId or callerName is missing');
+                }
 
             } catch (error) {
                 console.error('Error creating call: ', error);
             }
         }
         ,
+
         async answerCall() {
             try {
                 const callDocRef = doc(collection(firestore, 'calls'), this.callId);
@@ -150,10 +193,19 @@ export default {
                         }
                     });
                 });
+
+                onSnapshot(callDocRef, (snapshot) => {
+                    const data = snapshot.data();
+                    if (data?.callStatus === 'ended') {
+                        this.hangupCall();
+                    }
+                });
             } catch (error) {
                 console.error('Error answering call: ', error);
             }
-        },
+        }
+        ,
+
         hangupCall() {
             if (this.localStream) {
                 this.localStream.getTracks().forEach(track => track.stop());
@@ -166,6 +218,9 @@ export default {
             }
             this.localStream = null;
             this.remoteStream = null;
+            const callDocRef = doc(collection(firestore, 'calls'), this.callId);
+            updateDoc(callDocRef, { callStatus: 'ended' });
+            window.close();
         }
     },
     watch: {

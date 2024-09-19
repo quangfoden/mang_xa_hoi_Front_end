@@ -90,9 +90,11 @@
     </div>
 </template>
 <script>
+import { firestore, collection, addDoc, getDoc, setDoc,updateDoc , doc, onSnapshot } from '../../../firebase';
 import axios, { url } from '../../../core/coreRequest'
 import baseFunction from '../../../core/coreFunction'
 import { mapGetters } from 'vuex';
+
 export default {
     props: {
         myInfo: {
@@ -127,7 +129,8 @@ export default {
                 message: 'test'
             },
             isReply: false,
-            callRecipients: null
+            callRecipients: null,
+            callId: null,
         }
     },
     mounted() {
@@ -193,8 +196,20 @@ export default {
                 el.scrollIntoView({ behavior: 'smooth' });
             }
         },
-        openVideoCall(userId) {
+        async openVideoCall(userId) {
+           
             window.open(`/video-call?userId=${userId}`, '_blank', 'width=800,height=600');
+            // const notificationsRef = collection(firestore, 'notifications');
+            // await addDoc(notificationsRef, {
+            //     userId: userId,
+            //     callerName: this.myInfo.nickname,
+            //     message: 'Bạn có một cuộc gọi video mới!',
+            //     callId: this.callId,
+            //     type: 'video-call',
+            //     timestamp: new Date(),
+            // });
+
+
         }
 
     },
