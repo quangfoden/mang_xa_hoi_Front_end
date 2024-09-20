@@ -197,19 +197,7 @@ export default {
             }
         },
         async openVideoCall(userId) {
-           
             window.open(`/video-call?userId=${userId}`, '_blank', 'width=800,height=600');
-            // const notificationsRef = collection(firestore, 'notifications');
-            // await addDoc(notificationsRef, {
-            //     userId: userId,
-            //     callerName: this.myInfo.nickname,
-            //     message: 'Bạn có một cuộc gọi video mới!',
-            //     callId: this.callId,
-            //     type: 'video-call',
-            //     timestamp: new Date(),
-            // });
-
-
         }
 
     },

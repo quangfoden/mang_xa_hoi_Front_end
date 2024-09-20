@@ -4,12 +4,16 @@
             <h3>Cuộc gọi video mới</h3>
             <p>Bạn có một cuộc gọi video mới từ {{ callerName }}</p>
             <div calss="" style="display: flex;gap: 20px;justify-content: center">
-                <button class="btnAcc" @click="handleAnswerCall" style="width: 50px; height: 50px; border-radius: 50%; border: none;background-color: green;"><i style="color: #fff;font-size: 20px;" class="fa-solid fa-video"></i></button>
-                <button @click="handleIgnoreCall" class="btcDe" style="width: 50px; height: 50px;border-radius: 50%; border: none; background-color: red;"><i style="color: #fff; font-size: 20px" class="fa-solid fa-phone"></i></button>
+                <button class="btnAcc" @click="handleAnswerCall"
+                    style="width: 50px; height: 50px; border-radius: 50%; border: none;background-color: green;"><i
+                        style="color: #fff;font-size: 20px;" class="fa-solid fa-video"></i></button>
+                <button @click="handleIgnoreCall" class="btcDe"
+                    style="width: 50px; height: 50px;border-radius: 50%; border: none; background-color: red;"><i
+                        style="color: #fff; font-size: 20px" class="fa-solid fa-phone"></i></button>
             </div>
         </div>
     </div>
-    <audio ref="ringtone" src="/src/assets/mp3/ssstik.io_1726702988667.mp3" preload="auto"></audio>
+    <audio ref="ringtone" src="/src/assets/mp3/ssstik.io_1726702988667.mp3" loop preload="auto"></audio>
 </template>
 
 <script>
@@ -32,12 +36,22 @@ export default {
         },
         async handleAnswerCall() {
             this.showModal = false;
+            this.$refs.ringtone.pause();
+            this.$refs.ringtone.currentTime = 0;
             window.open(`/video-call?callId=${this.callId}`, '_blank', 'width=800,height=600');
         },
         async handleIgnoreCall() {
             this.$refs.ringtone.pause();
             this.$refs.ringtone.currentTime = 0;
             this.showModal = false;
+
+            try {
+                const callDocRef = doc(firestore, 'calls', this.callId);
+                await updateDoc(callDocRef, { callStatus: 'ended' });
+                console.log('Call status updated to ended.');
+            } catch (error) {
+                console.error('Error updating call status: ', error);
+            }
         },
     },
 };
@@ -64,13 +78,17 @@ export default {
     text-align: center;
     width: auto;
 }
-.btnAcc,.btcDe{
+
+.btnAcc,
+.btcDe {
     position: relative;
 }
-.btnAcc i,.btcDe i{
+
+.btnAcc i,
+.btcDe i {
     position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 </style>

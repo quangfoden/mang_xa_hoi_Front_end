@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div v-if="!calling">
         <h2>1. Start your Webcam</h2>
         <div class="videos">
             <span>
@@ -10,7 +10,10 @@
                 <video ref="remoteVideo" autoplay playsinline></video>
             </span>
         </div>
-        <button :disabled="!remoteStream" @click="hangupCall">Kết thúc</button>
+        <button @click="hangupCall">Kết thúc</button>
+    </div>
+    <div v-else>
+        <div>Đang gọi</div>
     </div>
 </template>
 
@@ -25,63 +28,46 @@ const servers = {
 };
 
 export default {
-
     data() {
         return {
+            calling: true,
             pc: new RTCPeerConnection(servers),
             localStream: null,
-            remoteStream: null,
+            remoteStream: new MediaStream(),
             callId: null,
             userId: null,
             myInfo: null
         };
     },
+
     async mounted() {
         await this.startWebcam();
-        if (this.callId) {
-            console.log('có callId');
-            this.answerCall();
-        }
-        else {
-            await this.createCall()
-            console.log('tạo mới call');
-        }
+        this.callId ? await this.answerCall() : await this.createCall();
     },
 
     created() {
-        this.getMyInfo()
-        if (this.$route.query.userId) {
-            this.userId = this.$route.query.userId;
-        }
-        if (this.$route.query.callId) {
-            this.callId = this.$route.query.callId;
-        }
-    }
-    ,
+        this.getMyInfo();
+        this.userId = this.$route.query.userId || null;
+        this.callId = this.$route.query.callId || null;
+    },
+
     methods: {
-        getMyInfo() {
-            axios
-                .get('profile/data')
-                .then((res) => {
-                    this.myInfo = res.data.myInfo;
-                });
+        async getMyInfo() {
+            try {
+                const res = await axios.get('profile/data');
+                this.myInfo = res.data.myInfo;
+            } catch (error) {
+                console.error("Error fetching myInfo:", error);
+            }
         },
 
         async startWebcam() {
             try {
                 this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
-                this.remoteStream = new MediaStream();
-
-                this.localStream.getTracks().forEach((track) => {
-                    this.pc.addTrack(track, this.localStream);
-                });
-
+                this.localStream.getTracks().forEach((track) => this.pc.addTrack(track, this.localStream));
                 this.pc.ontrack = (event) => {
-                    event.streams[0].getTracks().forEach((track) => {
-                        this.remoteStream.addTrack(track);
-                    });
+                    event.streams[0].getTracks().forEach((track) => this.remoteStream.addTrack(track));
                 };
-
                 this.$refs.webcamVideo.srcObject = this.localStream;
                 this.$refs.remoteVideo.srcObject = this.remoteStream;
             } catch (error) {
@@ -89,21 +75,33 @@ export default {
             }
         },
 
+        setupICECandidates(offerCandidatesRef, answerCandidatesRef) {
+            this.pc.onicecandidate = (event) => {
+                if (event.candidate) {
+                    addDoc(offerCandidatesRef || answerCandidatesRef, event.candidate.toJSON());
+                }
+            };
+        },
+
+        subscribeToCandidates(candidatesRef) {
+            return onSnapshot(candidatesRef, (snapshot) => {
+                snapshot.docChanges().forEach((change) => {
+                    if (change.type === 'added') {
+                        const candidate = new RTCIceCandidate(change.doc.data());
+                        this.pc.addIceCandidate(candidate);
+                    }
+                });
+            });
+        },
+
         async createCall() {
             try {
-                // Create a reference to a new document in 'calls' collection
                 const callDocRef = doc(collection(firestore, 'calls'));
                 const offerCandidatesRef = collection(callDocRef, 'offerCandidates');
                 const answerCandidatesRef = collection(callDocRef, 'answerCandidates');
 
-                // Save ICE candidates to the database
-                this.pc.onicecandidate = (event) => {
-                    if (event.candidate) {
-                        addDoc(offerCandidatesRef, event.candidate.toJSON());
-                    }
-                };
+                this.setupICECandidates(offerCandidatesRef);
 
-                // Create offer and set local description
                 const offerDescription = await this.pc.createOffer();
                 await this.pc.setLocalDescription(offerDescription);
 
@@ -112,62 +110,55 @@ export default {
                     type: offerDescription.type,
                 };
 
-                await setDoc(callDocRef, { offer });
-
+                await setDoc(callDocRef, { offer, callStatus: 'calling', createdAt: new Date() });
                 this.callId = callDocRef.id;
 
-                onSnapshot(callDocRef, (snapshot) => {
-                    const data = snapshot.data();
-                    if (data?.answer && !this.pc.currentRemoteDescription) {
-                        const answerDescription = new RTCSessionDescription(data.answer);
-                        this.pc.setRemoteDescription(answerDescription);
-                    }
-                    if (data?.callStatus === 'ended') {
-                        this.hangupCall();
-                    }
-                });
+                this.listenForAnswer(callDocRef);
+                this.subscribeToCandidates(answerCandidatesRef);
 
-                onSnapshot(answerCandidatesRef, (snapshot) => {
-                    snapshot.docChanges().forEach((change) => {
-                        if (change.type === 'added') {
-                            const candidate = new RTCIceCandidate(change.doc.data());
-                            this.pc.addIceCandidate(candidate);
-                        }
-                    });
-                });
-                if (this.userId && this.myInfo?.nickname) {
-                    console.log('notificationsRef');
-
-                    const notificationsRef = collection(firestore, 'notifications');
-                    await addDoc(notificationsRef, {
-                        userId: this.userId,
-                        callerName: this.myInfo.nickname,
-                        message: 'Bạn có một cuộc gọi video mới!',
-                        callId: this.callId,
-                        type: 'video-call',
-                        timestamp: new Date(),
-                    });
-                } else {
-                    console.error('userId or callerName is missing');
-                }
-
+                await this.notifyUser();
             } catch (error) {
-                console.error('Error creating call: ', error);
+                console.error('Error creating call:', error);
             }
-        }
-        ,
+        },
+
+        async notifyUser() {
+            if (this.userId && this.myInfo?.nickname) {
+                const notificationsRef = collection(firestore, 'notifications');
+                await addDoc(notificationsRef, {
+                    userId: this.userId,
+                    callerName: this.myInfo.nickname,
+                    message: 'Bạn có một cuộc gọi video mới!',
+                    callId: this.callId,
+                    type: 'video-call',
+                    timestamp: new Date(),
+                });
+            } else {
+                console.error('userId or callerName is missing');
+            }
+        },
+
+        listenForAnswer(callDocRef) {
+            onSnapshot(callDocRef, (snapshot) => {
+                const data = snapshot.data();
+                if (data?.answer && !this.pc.currentRemoteDescription) {
+                    const answerDescription = new RTCSessionDescription(data.answer);
+                    this.pc.setRemoteDescription(answerDescription);
+                }
+                if (data?.callStatus === 'ended') {
+                    window.close();
+                    this.hangupCall();
+                }
+            });
+        },
 
         async answerCall() {
             try {
-                const callDocRef = doc(collection(firestore, 'calls'), this.callId);
-                const answerCandidatesRef = collection(callDocRef, 'answerCandidates');
+                const callDocRef = doc(firestore, 'calls', this.callId);
                 const offerCandidatesRef = collection(callDocRef, 'offerCandidates');
+                const answerCandidatesRef = collection(callDocRef, 'answerCandidates');
 
-                this.pc.onicecandidate = (event) => {
-                    if (event.candidate) {
-                        addDoc(answerCandidatesRef, event.candidate.toJSON());
-                    }
-                };
+                this.setupICECandidates(null, answerCandidatesRef);
 
                 const callData = (await getDoc(callDocRef)).data();
                 if (callData?.offer) {
@@ -181,48 +172,35 @@ export default {
                         type: answerDescription.type,
                         sdp: answerDescription.sdp,
                     };
+                    await setDoc(callDocRef, { answer, callStatus: 'in-a-call', createdAt: new Date() });
 
-                    await updateDoc(callDocRef, { answer });
                 }
 
-                onSnapshot(offerCandidatesRef, (snapshot) => {
-                    snapshot.docChanges().forEach((change) => {
-                        if (change.type === 'added') {
-                            const candidate = new RTCIceCandidate(change.doc.data());
-                            this.pc.addIceCandidate(candidate);
-                        }
-                    });
-                });
-
-                onSnapshot(callDocRef, (snapshot) => {
-                    const data = snapshot.data();
-                    if (data?.callStatus === 'ended') {
-                        this.hangupCall();
-                    }
-                });
+                this.subscribeToCandidates(offerCandidatesRef);
+                this.listenForAnswer(callDocRef);
             } catch (error) {
-                console.error('Error answering call: ', error);
+                console.error('Error answering call:', error);
             }
-        }
-        ,
+        },
 
-        hangupCall() {
-            if (this.localStream) {
-                this.localStream.getTracks().forEach(track => track.stop());
+        async hangupCall() {
+            [this.localStream, this.remoteStream].forEach(stream => {
+                if (stream) {
+                    stream.getTracks().forEach(track => track.stop());
+                }
+            });
+            this.pc?.close();
+            try {
+                const callDocRef = doc(firestore, 'calls', this.callId);
+                await updateDoc(callDocRef, { callStatus: 'ended' });
+                console.log('Call status updated to ended.');
+            } catch (error) {
+                console.error('Error updating call status: ', error);
             }
-            if (this.remoteStream) {
-                this.remoteStream.getTracks().forEach(track => track.stop());
-            }
-            if (this.pc) {
-                this.pc.close();
-            }
-            this.localStream = null;
-            this.remoteStream = null;
-            const callDocRef = doc(collection(firestore, 'calls'), this.callId);
-            updateDoc(callDocRef, { callStatus: 'ended' });
             window.close();
         }
     },
+
     watch: {
         remoteStream(newStream) {
             if (newStream) {
@@ -231,6 +209,7 @@ export default {
         }
     }
 };
+
 </script>
 
 <style scoped>
