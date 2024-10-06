@@ -26,7 +26,7 @@
                                         {{ v.fullname }}</b>
                                 </router-link>
                                 <div v-else class="text-hover text-dark c-pointer">
-                                    <b style="color: #000; font-size: 1.1rem">Anonymous member</b>
+                                    <b style="color: #000; font-size: 1.1rem">Thành viên ẩn danh</b>
                                 </div>
                                 <small class="flex-center">
                                     <i class="fa-solid fa-circle mx-1" style="font-size: 0.3em"></i>

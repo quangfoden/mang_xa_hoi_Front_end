@@ -35,15 +35,15 @@
                             <b class="text-nowrap text-dark">{{ v.group_name }}</b>
                         </div>
                         <div class="mb-1 text-secondary">
-                            <span>{{ v.member }} member</span>
+                            <span>{{ v.member }} thành viên</span>
                         </div>
                     </div>
                     <div class="card-footer">
                         <button v-if="v.status_button == 0" @click="joinGroup(v, k, $event, 'popular')"
-                            class="btn btn-light w-100 f-500">Join group</button>
+                            class="btn btn-light w-100 f-500">Tham gia nhóm</button>
                         <button v-else-if="v.status_button == 1" class="btn  btn-light w-100 f-500 py-0 my-0" disabled>
                             <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
-                                style="height: 37px;">Join group</button>
+                                style="height: 37px;">Tham gia nhóm</button>
                         <button v-else class="btn btn-primary w-100 f-500">Access the group</button>
                     </div>
                 </div>
@@ -74,16 +74,16 @@
                                 <b class="text-nowrap text-dark">{{ v.group_name }}</b>
                             </div>
                             <div class="mb-1 text-secondary">
-                                <span>{{ v.member }} member</span>
+                                <span>{{ v.member }} thành viên</span>
                             </div>
                         </div>
                         <div class="card-footer">
                             <button v-if="v.status_button == 0" @click="joinGroup(v, k, $event, 'suggest')"
-                                class="btn btn-light w-100 f-500">Join group</button>
+                                class="btn btn-light w-100 f-500">Tham gia nhóm</button>
                             <button v-else-if="v.status_button == 1" class="btn  btn-light w-100 f-500 py-0 my-0"
                                 disabled>
                                 <img src="../../../../assets/client/images/page-img/page-load-loader.gif" alt="loader"
-                                    style="height: 37px;">Join group</button>
+                                    style="height: 37px;">Tham gia nhóm</button>
                             <button v-else class="btn btn-primary w-100 f-500">Access the group</button>
                         </div>
                     </div>

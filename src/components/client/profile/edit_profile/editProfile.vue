@@ -326,6 +326,7 @@ export default {
                         this.origin_data = Object.assign({}, res.data.dataEditProfile)
                         this.image = res.data.dataEditProfile.avatar
                         baseFunction.displaySuccess(res);
+                        window.location.reload()
                         $('.updateProfile').prop('disabled', true);
 
                         this.$emit('updateProfile', res.data.dataEditProfile)

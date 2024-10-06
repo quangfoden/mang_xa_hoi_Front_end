@@ -68,7 +68,7 @@
                                                 {{ v.fullname }}</b>
                                         </router-link>
                                         <div v-else class="text-hover text-dark c-pointer">
-                                            <b style="color: #000; font-size: 1.1rem">Anonymous member</b>
+                                            <b style="color: #000; font-size: 1.1rem">Thành viên ẩn danh</b>
                                         </div>
 
                                         <i class="fa-solid fa-circle mx-1" style="font-size: 0.3em"></i>
@@ -111,7 +111,7 @@
     <div v-else class="pt-5 w-100" style="min-height: calc(100vh - 4.688rem);">
         <div style="height: fit-content;" class=" flex-center flex-column"><img style="width: 10rem;"
                 src="https://www.facebook.com/images/comet/empty_states_icons/files/null_states_files_dark_mode.svg" alt="">
-            <h3><b>There are no posts to review yet</b></h3>
+            <h3><b>Chưa có bài viết nào để xem xét</b></h3>
         </div>
 
     </div>

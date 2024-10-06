@@ -23,8 +23,8 @@
                                             <h1 class="modal-title fs-5"><b>Story privacy</b></h1>
                                         </div>
                                         <div class="modal-body">
-                                            <h5><b style="font-weight: 500;">Who can see your story?</b></h5>
-                                            <p>Your story will be visible on NF for 24 hours.</p>
+                                            <h5><b style="font-weight: 500;">Ai có thể xem story của bạn?</b></h5>
+                                            <p>Story của bạn sẽ hiển thị trên NF trong 24 giờ.</p>
                                             <div class=" w-100 h-100 ">
                                                 <div @click="setPrivacy('rdoPublic')"
                                                     class="w-100 d-flex mb-2 privacy-hover ps-2 align-items-center"
@@ -38,9 +38,9 @@
                                                     align-items-center" style="width: calc(100% - 60px);">
                                                         <div class="d-flex flex-column pt-3" style="user-select: none;">
                                                             <h5>
-                                                                <b style="font-weight: 500;">Public</b>
+                                                                <b style="font-weight: 500;">Công khai</b>
                                                             </h5>
-                                                            <p>anyone on NF social networks</p>
+                                                            <p>Bất kể ai trên mạng xã hội NF</p>
                                                         </div>
                                                         <div>
                                                             <input class="form-check-input me-2" value="1"
@@ -61,9 +61,9 @@
                                                     align-items-center" style="width: calc(100% - 60px);">
                                                         <div class="d-flex flex-column pt-3" style="user-select: none;">
                                                             <h5>
-                                                                <b style="font-weight: 500;">Friends</b>
+                                                                <b style="font-weight: 500;">Bạn bè</b>
                                                             </h5>
-                                                            <p>only your friends on the NF social network</p>
+                                                            <p>Chỉ những người bạn của bạn trên mạng xã hội NF</p>
                                                         </div>
                                                         <div>
                                                             <input class="form-check-input me-2" value="2"
@@ -84,9 +84,9 @@
                                                     align-items-center" style="width: calc(100% - 60px);">
                                                         <div class="d-flex flex-column pt-3" style="user-select: none;">
                                                             <h5>
-                                                                <b style="font-weight: 500;">Private</b>
+                                                                <b style="font-weight: 500;">Chỉ mình tôi</b>
                                                             </h5>
-                                                            <p>only you see on social networks</p>
+                                                            <p>Chỉ bạn thấy trên mạng xã hội</p>
                                                         </div>
                                                         <div>
                                                             <input class="form-check-input me-2" value="4"
@@ -99,9 +99,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary"
-                                                @click="closePrivacyModal()">Close</button>
-                                            <button @click="savePrivacy()" type="button" class="btn btn-primary">Save
-                                                changes</button>
+                                                @click="closePrivacyModal()">Đóng</button>
+                                            <button @click="savePrivacy()" type="button" class="btn btn-primary">Lưu thay đổi</button>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +117,7 @@
                     <div v-if="isTextStory" class="px-3">
                         <div class="mb-3">
                             <textarea v-model="textt" class="form-control pt-3" name="" id="" rows="7"
-                                placeholder="Start typing ..."></textarea>
+                                placeholder="Nhập văn bản ..."></textarea>
                         </div>
                         <div class="mb-3 p-2 radius-10" style="border: 1px solid #e4e4e4;">
                             <label class="text-dark">Background</label>
@@ -134,8 +133,8 @@
                 </nav>
                 <div class="p-5"></div>
                 <div v-if="isCreate" class="nav-bottom d-flex align-items-center justify-content-center">
-                    <button class="btn btn-light me-2 px-4" @click="closeModal">Cancel</button>
-                    <button @click="screenCapture" class="btn btn-primary px-4">Share the story</button>
+                    <button class="btn btn-light me-2 px-4" @click="closeModal">Bỏ qua</button>
+                    <button @click="screenCapture" class="btn btn-primary px-4">lưu</button>
                 </div>
             </div>
             <div class="scrollbar-track scrollbar-track-x" style="display: none;">
@@ -164,7 +163,7 @@
                         style="height: 50px; width: 50px; background-color: #ffffff; cursor: pointer;">
                         <i class="fa-regular fa-images " style="font-size: 20px; color: rgb(0, 0, 0);"></i>
                     </div>
-                    <b style="color: #ffffff; font-size: 12px;">Create Photo Stories</b>
+                    <b style="color: #ffffff; font-size: 12px;">Ảnh</b>
                 </div>
 
             </div>
@@ -175,7 +174,7 @@
                     style="height: 50px; width: 50px; background-color: #ffffff; cursor: pointer;">
                     <i class="fa-solid fa-font " style="font-size: 20px; color: rgb(0, 0, 0);"></i>
                 </div>
-                <b style="color: #ffffff; font-size: 12px;">Create Text Stories</b>
+                <b style="color: #ffffff; font-size: 12px;">Văn bản</b>
             </div>
         </div>
 

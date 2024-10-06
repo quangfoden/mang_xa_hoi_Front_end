@@ -44,9 +44,9 @@
                                 </router-link>
                             </div>
 
-                            <div>
+                            <!-- <div>
                                 <i class="fa-solid fa-ellipsis text-dark" style="cursor: pointer;"></i>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="px-2 text-dark f-500" style="font-size: 15px; font-weight: 400;">
                             {{ post.caption }}
