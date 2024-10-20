@@ -96,6 +96,7 @@ export default {
 
         async createCall() {
             try {
+                this.userId = this.$route.query.userId || null;
                 const callDocRef = doc(collection(firestore, 'calls'));
                 const offerCandidatesRef = collection(callDocRef, 'offerCandidates');
                 const answerCandidatesRef = collection(callDocRef, 'answerCandidates');
@@ -142,6 +143,7 @@ export default {
             onSnapshot(callDocRef, (snapshot) => {
                 const data = snapshot.data();
                 if (data?.answer && !this.pc.currentRemoteDescription) {
+                    this.calling=false
                     const answerDescription = new RTCSessionDescription(data.answer);
                     this.pc.setRemoteDescription(answerDescription);
                 }
@@ -175,7 +177,7 @@ export default {
                     await setDoc(callDocRef, { answer, callStatus: 'in-a-call', createdAt: new Date() });
 
                 }
-
+                this.calling = false
                 this.subscribeToCandidates(offerCandidatesRef);
                 this.listenForAnswer(callDocRef);
             } catch (error) {
@@ -197,6 +199,7 @@ export default {
             } catch (error) {
                 console.error('Error updating call status: ', error);
             }
+            this.calling = true
             window.close();
         }
     },
