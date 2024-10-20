@@ -41,24 +41,37 @@ export default {
 
     async mounted() {
         await this.startWebcam();
+        // this.getMyInfo();
         this.callId ? await this.answerCall() : await this.createCall();
     },
 
     created() {
-        this.getMyInfo();
+        this.getMyInfoFromLocalStorage();
         this.userId = this.$route.query.userId || null;
         this.callId = this.$route.query.callId || null;
     },
 
     methods: {
-        async getMyInfo() {
-            try {
-                const res = await axios.get('profile/data');
-                this.myInfo = res.data.myInfo;
-            } catch (error) {
-                console.error("Error fetching myInfo:", error);
+        getMyInfoFromLocalStorage() {
+            const profileData = localStorage.getItem('information-my-profile');
+            if (profileData) {
+                try {
+                    this.myInfo = JSON.parse(profileData);  // Parse và gán giá trị cho myInfo
+                } catch (error) {
+                    console.error("Error parsing profile data from localStorage:", error);
+                }
+            } else {
+                console.error("No profile data found in localStorage.");
             }
         },
+        // async getMyInfo() {
+        //     try {
+        //         const res = await axios.get('profile/data');
+        //         this.myInfo = res.data.myInfo;
+        //     } catch (error) {
+        //         console.error("Error fetching myInfo:", error);
+        //     }
+        // },
 
         async startWebcam() {
             try {
@@ -96,6 +109,10 @@ export default {
         async createCall() {
             try {
                 this.userId = this.$route.query.userId || null;
+                if (!this.userId) {
+                    console.error("Missing userId");
+                    return;
+                }
                 const callDocRef = doc(collection(firestore, 'calls'));
                 const offerCandidatesRef = collection(callDocRef, 'offerCandidates');
                 const answerCandidatesRef = collection(callDocRef, 'answerCandidates');
@@ -134,7 +151,10 @@ export default {
                     timestamp: new Date(),
                 });
             } else {
-                console.error('userId or callerName is missing');
+                console.error('userId or callerName is missing', {
+                    userId: this.userId,
+                    callerName: this.myInfo?.nickname
+                });
             }
         },
 
@@ -223,7 +243,8 @@ export default {
 video {
     width: 45%;
 }
-.hangup_call{
+
+.hangup_call {
     text-align: center;
     display: block;
     width: 100px;
