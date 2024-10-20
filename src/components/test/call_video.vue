@@ -1,6 +1,5 @@
 <template>
     <div v-if="!calling">
-        <h2>1. Start your Webcam</h2>
         <div class="videos">
             <span>
                 <video ref="webcamVideo" autoplay playsinline></video>
@@ -10,7 +9,7 @@
                 <video ref="remoteVideo" autoplay playsinline></video>
             </span>
         </div>
-        <button @click="hangupCall">Kết thúc</button>
+        <button class="hangup_call" @click="hangupCall">Kết thúc</button>
     </div>
     <div v-else>
         <div>Đang gọi</div>
@@ -143,7 +142,7 @@ export default {
             onSnapshot(callDocRef, (snapshot) => {
                 const data = snapshot.data();
                 if (data?.answer && !this.pc.currentRemoteDescription) {
-                    this.calling=false
+                    this.calling = false
                     const answerDescription = new RTCSessionDescription(data.answer);
                     this.pc.setRemoteDescription(answerDescription);
                 }
@@ -223,5 +222,20 @@ export default {
 
 video {
     width: 45%;
+}
+.hangup_call{
+    text-align: center;
+    display: block;
+    width: 100px;
+    margin: auto;
+    border: none;
+    background: red;
+    color: rgb(255, 255, 255);
+    border-radius: 10px;
+    font-weight: 600;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 </style>
