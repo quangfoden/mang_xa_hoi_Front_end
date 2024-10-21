@@ -1,19 +1,19 @@
 <template>
-    <div v-if="!calling">
-        <div class="videos">
+    <div>
+        <div :class="{'bg_overlay':calling}"></div>
+        <div class="videos" :class="{'calling':calling}">
             <span>
-                <video ref="webcamVideo" autoplay playsinline></video>
+                <video class="webcamVideo" ref="webcamVideo" autoplay playsinline></video>
             </span>
-            <span>
-                <h3>Friend</h3>
-                <video ref="remoteVideo" autoplay playsinline></video>
+            <span class="answer_call" style="text-align: end; margin-right: 10px;">
+                <video :class="{'answer': !calling}" class="remoteVideo" ref="remoteVideo" autoplay playsinline></video>
             </span>
         </div>
         <button class="hangup_call" @click="hangupCall">Kết thúc</button>
     </div>
-    <div v-else>
+    <!-- <div v-else>
         <div>Đang gọi</div>
-    </div>
+    </div> -->
 </template>
 
 <script>
@@ -83,7 +83,7 @@ export default {
                 this.$refs.webcamVideo.srcObject = this.localStream;
                 this.$refs.remoteVideo.srcObject = this.remoteStream;
             } catch (error) {
-                console.error('Error starting webcam: ', error);
+                console.error('Error starting webcam: ', error.message);
             }
         },
 
@@ -235,6 +235,19 @@ export default {
 </script>
 
 <style scoped>
+.bg_overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5); /* Làm tối nền, có thể chỉnh độ mờ */
+    display: flex;
+    justify-content: center; /* Căn giữa theo chiều ngang */
+    align-items: center;     /* Căn giữa theo chiều dọc */
+    z-index: 2; /* Đảm bảo overlay hiển thị trên tất cả các thành phần khác */
+
+}
 .videos {
     display: flex;
     justify-content: space-around;
@@ -243,7 +256,24 @@ export default {
 video {
     width: 45%;
 }
-
+.remoteVideo.answer{
+    border: 1px solid #fff;
+}
+.answer_call{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+z-index: 4;
+}
+.webcamVideo {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* Giữ tỷ lệ khung hình mà không bị biến dạng */
+    z-index: 1; /* Đảm bảo video nằm trên cùng */
+}
 .hangup_call {
     text-align: center;
     display: block;
@@ -258,5 +288,6 @@ video {
     bottom: 20px;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 3;
 }
 </style>

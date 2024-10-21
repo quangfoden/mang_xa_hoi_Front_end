@@ -44,7 +44,6 @@ export default {
             this.$refs.ringtone.pause();
             this.$refs.ringtone.currentTime = 0;
             this.showModal = false;
-
             try {
                 const callDocRef = doc(firestore, 'calls', this.callId);
                 await updateDoc(callDocRef, { callStatus: 'ended' });
